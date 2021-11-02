@@ -1,5 +1,5 @@
 {
-  "extends": "../../.eslintrc.json",
+  "extends": "../../../.eslintrc.json",
   "ignorePatterns": [
     "!**/*"
   ],
@@ -10,8 +10,8 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/gpeel/my-validators/tsconfig.lib.json",
-          "projects/gpeel/my-validators/tsconfig.spec.json"
+          "tsconfig.lib.json",
+          "tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },

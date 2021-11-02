@@ -3,7 +3,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@gpeel/my-validators": ["src/public-api.ts"]
+      "@gpeel/my-validators": [
+        "dist/gpeel/my-validators/gpeel-my-validators",
+        "dist/gpeel/my-validators"
+      ]
     },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

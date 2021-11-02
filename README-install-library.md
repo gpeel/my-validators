@@ -47,7 +47,7 @@ If you Don'T want to build, but have you lib as simple sources, now you can chan
 * MODIFED by Gauthier
 
       "paths": {
-          "@gpeel/plog": ["src/public-api.ts"]
+          "@gpeel/my-validators": ["src/public-api.ts"]
       }
 
 ##          
