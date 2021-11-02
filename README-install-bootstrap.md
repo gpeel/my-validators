@@ -12,18 +12,8 @@ https://valor-software.com/ngx-bootstrap/#/documentation#getting-started
         npm install bootstrap
         ng add ngx-bootstrap
 
-
-Check the Install of CSS in angular.json file
-
-
-````json
-"styles": [     
-"./node_modules/bootstrap/dist/css/bootstrap.css",
- "styles.css" ],
-````
-
-
-Extract:
+ 
+Extract from https://www.techiediaries.com/angular-bootstrap/
 
 
 Alternative Step Adding Bootstrap 4 Using ng-bootstrap and ngx-bootstrap
