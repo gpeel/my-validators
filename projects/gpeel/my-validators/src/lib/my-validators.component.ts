@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-my-validators',
@@ -7,12 +7,12 @@ import {Component, OnInit} from '@angular/core';
       my-validators works!
     </p>
   `,
-  styles: []
+  styles: [
+  ]
 })
 export class MyValidatorsComponent implements OnInit {
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }

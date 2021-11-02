@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gpeel-my-validators-ng12": {
+    "reactive-flexible": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -13,25 +13,25 @@
           "strict": true
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/reactive-flexible",
+      "sourceRoot": "projects/reactive-flexible/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/gpeel-my-validators-ng12",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/reactive-flexible",
+            "index": "projects/reactive-flexible/src/index.html",
+            "main": "projects/reactive-flexible/src/main.ts",
+            "polyfills": "projects/reactive-flexible/src/polyfills.ts",
+            "tsConfig": "projects/reactive-flexible/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/reactive-flexible/src/favicon.ico",
+              "projects/reactive-flexible/src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "projects/reactive-flexible/src/styles.scss"
             ],
             "scripts": []
           },
@@ -51,8 +51,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/reactive-flexible/src/environments/environment.ts",
+                  "with": "projects/reactive-flexible/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "gpeel-my-validators-ng12:build:production"
+              "browserTarget": "reactive-flexible:build:production"
             },
             "development": {
-              "browserTarget": "gpeel-my-validators-ng12:build:development"
+              "browserTarget": "reactive-flexible:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,23 +83,23 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gpeel-my-validators-ng12:build"
+            "browserTarget": "reactive-flexible:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "main": "projects/reactive-flexible/src/test.ts",
+            "polyfills": "projects/reactive-flexible/src/polyfills.ts",
+            "tsConfig": "projects/reactive-flexible/tsconfig.spec.json",
+            "karmaConfig": "projects/reactive-flexible/karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/reactive-flexible/src/favicon.ico",
+              "projects/reactive-flexible/src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "projects/reactive-flexible/src/styles.scss"
             ],
             "scripts": []
           }
@@ -108,8 +108,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
+              "projects/reactive-flexible/**/*.ts",
+              "projects/reactive-flexible/**/*.html"
             ]
           }
         }
@@ -154,9 +154,345 @@
           }
         }
       }
+    },
+    "reactive-flexible-i18": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/reactive-flexible-i18",
+      "sourceRoot": "projects/reactive-flexible-i18/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/reactive-flexible-i18",
+            "index": "projects/reactive-flexible-i18/src/index.html",
+            "main": "projects/reactive-flexible-i18/src/main.ts",
+            "polyfills": "projects/reactive-flexible-i18/src/polyfills.ts",
+            "tsConfig": "projects/reactive-flexible-i18/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/reactive-flexible-i18/src/favicon.ico",
+              "projects/reactive-flexible-i18/src/assets"
+            ],
+            "styles": [
+              "projects/reactive-flexible-i18/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/reactive-flexible-i18/src/environments/environment.ts",
+                  "with": "projects/reactive-flexible-i18/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "reactive-flexible-i18:build:production"
+            },
+            "development": {
+              "browserTarget": "reactive-flexible-i18:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "reactive-flexible-i18:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/reactive-flexible-i18/src/test.ts",
+            "polyfills": "projects/reactive-flexible-i18/src/polyfills.ts",
+            "tsConfig": "projects/reactive-flexible-i18/tsconfig.spec.json",
+            "karmaConfig": "projects/reactive-flexible-i18/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/reactive-flexible-i18/src/favicon.ico",
+              "projects/reactive-flexible-i18/src/assets"
+            ],
+            "styles": [
+              "projects/reactive-flexible-i18/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/reactive-flexible-i18/**/*.ts",
+              "projects/reactive-flexible-i18/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "reactive-simplest": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/reactive-simplest",
+      "sourceRoot": "projects/reactive-simplest/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/reactive-simplest",
+            "index": "projects/reactive-simplest/src/index.html",
+            "main": "projects/reactive-simplest/src/main.ts",
+            "polyfills": "projects/reactive-simplest/src/polyfills.ts",
+            "tsConfig": "projects/reactive-simplest/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/reactive-simplest/src/favicon.ico",
+              "projects/reactive-simplest/src/assets"
+            ],
+            "styles": [
+              "projects/reactive-simplest/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/reactive-simplest/src/environments/environment.ts",
+                  "with": "projects/reactive-simplest/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "reactive-simplest:build:production"
+            },
+            "development": {
+              "browserTarget": "reactive-simplest:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "reactive-simplest:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/reactive-simplest/src/test.ts",
+            "polyfills": "projects/reactive-simplest/src/polyfills.ts",
+            "tsConfig": "projects/reactive-simplest/tsconfig.spec.json",
+            "karmaConfig": "projects/reactive-simplest/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/reactive-simplest/src/favicon.ico",
+              "projects/reactive-simplest/src/assets"
+            ],
+            "styles": [
+              "projects/reactive-simplest/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/reactive-simplest/**/*.ts",
+              "projects/reactive-simplest/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "template-if-you-really-want-it": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/template-if-you-really-want-it",
+      "sourceRoot": "projects/template-if-you-really-want-it/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/template-if-you-really-want-it",
+            "index": "projects/template-if-you-really-want-it/src/index.html",
+            "main": "projects/template-if-you-really-want-it/src/main.ts",
+            "polyfills": "projects/template-if-you-really-want-it/src/polyfills.ts",
+            "tsConfig": "projects/template-if-you-really-want-it/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/template-if-you-really-want-it/src/favicon.ico",
+              "projects/template-if-you-really-want-it/src/assets"
+            ],
+            "styles": [
+              "projects/template-if-you-really-want-it/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/template-if-you-really-want-it/src/environments/environment.ts",
+                  "with": "projects/template-if-you-really-want-it/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "template-if-you-really-want-it:build:production"
+            },
+            "development": {
+              "browserTarget": "template-if-you-really-want-it:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "template-if-you-really-want-it:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/template-if-you-really-want-it/src/test.ts",
+            "polyfills": "projects/template-if-you-really-want-it/src/polyfills.ts",
+            "tsConfig": "projects/template-if-you-really-want-it/tsconfig.spec.json",
+            "karmaConfig": "projects/template-if-you-really-want-it/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/template-if-you-really-want-it/src/favicon.ico",
+              "projects/template-if-you-really-want-it/src/assets"
+            ],
+            "styles": [
+              "projects/template-if-you-really-want-it/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/template-if-you-really-want-it/**/*.ts",
+              "projects/template-if-you-really-want-it/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "gpeel-my-validators-ng12",
+  "defaultProject": "reactive-flexible",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }

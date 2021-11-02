@@ -10,8 +10,8 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/gpeel/my-validators/tsconfig.lib.json",
-          "projects/gpeel/my-validators/tsconfig.spec.json"
+          "projects/reactive-flexible-i18/tsconfig.app.json",
+          "projects/reactive-flexible-i18/tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },
@@ -20,7 +20,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "lib",
+            "prefix": "app",
             "style": "camelCase"
           }
         ],
@@ -28,7 +28,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "lib",
+            "prefix": "app",
             "style": "kebab-case"
           }
         ]
