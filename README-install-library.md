@@ -1,6 +1,6 @@
-# GpeelPlogNg12
+# GpeelMyValidatorsNg12
 
-@gpeel/plog@12.0.0 is the first version migrated for Angular 12.
+@gpeel/my-validators@12.0.0 is the first version migrated for Angular 12.
 
 Here is the addtional steps used to install the library into this project.
 
@@ -9,8 +9,8 @@ Here is the addtional steps used to install the library into this project.
 https://angular.io/guide/file-structure
 https://angular.io/guide/creating-libraries
 
-            ng generate library @gpeel/plog
-            ng build @gpeel/plog 
+            ng generate library @gpeel/my-validators
+            ng build @gpeel/my-validators
 
 https://angular.io/guide/creating-libraries#managing-assets-in-a-library
 Managing assets in a library Starting with version 9.x of the ng-packagr tool, you can configure the tool to
@@ -27,16 +27,22 @@ library, it has to find the mapping in your tsconfig paths.
 Generating a library with the Angular CLI automatically adds its path to the tsconfig file. The Angular CLI uses the
 tsconfig paths to tell the build system where to find the library.
 
+````json
+ {
+  "compilerOptions": {
     "paths": {
-      "@gpeel/plog": [
-      "dist/gpeel/plog/gpeel-plog",
-      "dist/gpeel/plog"
+      "@gpeel/my-validators": [
+        "dist/gpeel/my-validators/gpeel-my-validators",
+        "dist/gpeel/my-validators"
       ]
     }
+  }
+}
+````
 
 By default, CLI generate the link to the ./dist folder => So you HAVE TO BUILD the lib to test it.
 
-And now you can change that to src with :
+If you Don'T want to build, but have you lib as simple sources, now you can change that to src with :
 
 * MODIFED by Gauthier
 
@@ -44,9 +50,9 @@ And now you can change that to src with :
           "@gpeel/plog": ["src/public-api.ts"]
       }
 
-##      
+##          
 
-In .eslintrc.json the geneated path is wrong, change it from :
+In the lib .eslintrc.json the generated path is wrong, change it from :
 line 2
 
     "extends": "../../.eslintrc.json",
@@ -55,11 +61,11 @@ to :
 
     "extends": "../../../.eslintrc.json",
 
-And also later tsconfig paths are wrong.
+And also later tsconfig paths are wrong. FORM
 
 ````json
 {
-  "extends": "../../../.eslintrc.json",
+  "extends": "../../.eslintrc.json",
   "ignorePatterns": [
     "!**/*"
   ],
@@ -70,12 +76,14 @@ And also later tsconfig paths are wrong.
       ],
       "parserOptions": {
         "project": [
-          "tsconfig.lib.json",
-          "tsconfig.spec.json"
+          "projects/gpeel/my-validators/tsconfig.lib.json",
+          "projects/gpeel/my-validators/tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },
 ````
+
+TO CORRECT VERSION :
 
 ````json
 {

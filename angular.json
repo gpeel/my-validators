@@ -114,6 +114,46 @@
           }
         }
       }
+    },
+    "@gpeel/my-validators": {
+      "projectType": "library",
+      "root": "projects/gpeel/my-validators",
+      "sourceRoot": "projects/gpeel/my-validators/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/gpeel/my-validators/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/gpeel/my-validators/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/gpeel/my-validators/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/gpeel/my-validators/src/test.ts",
+            "tsConfig": "projects/gpeel/my-validators/tsconfig.spec.json",
+            "karmaConfig": "projects/gpeel/my-validators/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/gpeel/my-validators/**/*.ts",
+              "projects/gpeel/my-validators/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "gpeel-my-validators-ng12",
