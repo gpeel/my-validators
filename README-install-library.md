@@ -50,7 +50,7 @@ If you Don'T want to build, but have you lib as simple sources, now you can chan
           "@gpeel/my-validators": ["src/public-api.ts"]
       }
 
-##          
+##           
 
 In the lib .eslintrc.json the generated path is wrong, change it from :
 line 2
@@ -116,3 +116,7 @@ You should do it ONCE on your machine:
     Logged in as gpeel on https://registry.npmjs.org/.
 
 This creates a .npmrc file in your c/users/gauthier with the credit to log in https://www.npmjs.com/
+
+## my logging lib
+
+      npm i @gpeel/plog
