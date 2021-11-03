@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {makeDirty, MyValidators} from '@gpeel/my-validators';
+import {ErrorMsgMap, makeDirty, MyValidators} from '@gpeel/my-validators';
 import {Plog} from '@gpeel/plog';
 
 @Component({
@@ -14,11 +14,29 @@ export class ReactiveUiComponent implements OnInit {
     name1: 'Thomas1',
     name2: 'Thomas2',
     name3: '',
-    name4: 'Thomas4',
+    name4: 'Th',
     name5: 'Thomas5',
     name6: 'Thomas6',
   };
   form!: FormGroup;
+
+  extraMessagesOverride: ErrorMsgMap = {
+    required: 'Override You must choose something !',
+    minlength: ({
+                  actualLength,
+                  requiredLength
+                }) => `Override : Actual length is ${actualLength} and we need ${requiredLength}!`
+  };
+
+  test4 = `
+    extraMessagesOverride: ErrorMsgMap = {
+    required: 'Override You must choose something !',
+    minlength: ({
+                  actualLength,
+                  requiredLength
+                }) => \`Override : Actual length is \${actualLength} and we need \${requiredLength}!\`
+  };
+  `;
 
   constructor(private fb: FormBuilder) {
   }

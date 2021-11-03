@@ -47,12 +47,22 @@
     </div>
 
     <!--  test 4 -->
+    <div class="m-4 fst-italic">
+      <h4>Test 4 locally override an error message (detail)</h4>
+      <div>Of course you can factorize your message overrides into a property placed inside your @Component
+      </div>
+      <div>For example for the required message:</div>
+      <div>[myErrorExtraMsg]="extraMessagesOverride"</div>
+      <div>with</div>
+      <pre>{{test4}}</pre>
+    </div>
 
-    <!--    <div class="form-group">-->
-    <!--      <label for="name">Name</label>-->
-    <!--      <input id="name" class="form-control" formControlName="name" myErrorMsg-->
-    <!--             [myErrorExtraMsg]="extraMessagesOverride">-->
-    <!--    </div>-->
+
+    <div class="form-group">
+      <label for="name4">Name</label>
+      <input [myErrorExtraMsg]="extraMessagesOverride" class="form-control" formControlName="name4" id="name4"
+             myErrorMsg>
+    </div>
 
     <!--  test 5 -->
 
