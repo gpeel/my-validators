@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 // noinspection ES6PreferShortImport
 import {ErrorMsgMap} from '../../error-messages/error-msg-api';
-import {MyMessagesServiceInterface} from '../messages-service-api';
+import {MyMessagesServiceInterface} from './messages-service-api';
 
 
 export const I18N_MESSAGES: ErrorMsgMap = {

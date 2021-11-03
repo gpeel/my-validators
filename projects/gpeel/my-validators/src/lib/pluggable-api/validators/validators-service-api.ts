@@ -1,4 +1,6 @@
+import {InjectionToken} from '@angular/core';
 import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {MyMessagesServiceInterface} from '../messages/messages-service-api';
 
 export interface MyValidatorsServiceInterface {
 
@@ -13,3 +15,4 @@ export interface MyValidatorsServiceInterface {
   nullValidator(control: AbstractControl): ValidationErrors | null;
 }
 
+export const MY_VALIDATORS_SERVICE_API = new InjectionToken<MyMessagesServiceInterface>('MyValidatorsService');

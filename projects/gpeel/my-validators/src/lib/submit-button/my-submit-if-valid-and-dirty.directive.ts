@@ -1,8 +1,8 @@
 import {Directive, EventEmitter, Inject, Injector, Optional, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Plog} from '@gpeel/plog';
-import {MY_ALERT_SERVICE_API, MyAlertServiceInterface} from '../alert/alert-api';
-import {MY_MESSAGES_SERVICE_API, MyMessagesServiceInterface} from '../validators/messages-service-api';
+import {MY_ALERT_SERVICE_API, MyAlertServiceInterface} from '../pluggable-api/alert/alert-api';
+import {MY_MESSAGES_SERVICE_API, MyMessagesServiceInterface} from '../pluggable-api/messages/messages-service-api';
 import {SubmitIfAbstractDirective} from './submit-if-abstract.directive';
 
 // // usually AlertModule is in ./libs
@@ -19,11 +19,11 @@ import {SubmitIfAbstractDirective} from './submit-if-abstract.directive';
  * If the form.valid is true => the event (tsSubmitIfValid) is emitted,
  * so the save() method is only then executed.
  * An alertService is invoked  (if provided on MY_ALERT_SERVICE_API Token)
- * - if form not valid to show the message : 'You must correct your form before saving it'.
- * - if form pristine to show the message : 'Your FORM is pristine! No action executed';
+ * - if form not valid to show the messages : 'You must correct your form before saving it'.
+ * - if form pristine to show the messages : 'Your FORM is pristine! No action executed';
  *
  * You can also provide a MessageService impleme,ting MyMessagesServiceInterface,
- * if you do, return a message or the keys 'pristineForm' and 'invalidForm' to the method
+ * if you do, return a messages or the keys 'pristineForm' and 'invalidForm' to the method
  * getValidationMessageFor(key: string, errors?: ErrorMsgMap): string;
  *
  * For example :

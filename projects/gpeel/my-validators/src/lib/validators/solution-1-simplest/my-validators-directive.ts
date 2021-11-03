@@ -2,6 +2,7 @@
 /* eslint-disable  no-underscore-dangle */
 /**
  * GAUTHIER PEEL : copied form version 9.1.1
+ * needed for ngModel fans (if you still find some!)
  *
  * @license
  * Copyright Google Inc. All Rights Reserved.

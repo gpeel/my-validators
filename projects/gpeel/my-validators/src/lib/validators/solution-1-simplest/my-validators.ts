@@ -1,6 +1,6 @@
 /**
  * GAUTHIER PEEL : copied form version 9.1.1
- * MyValidators now compute an error message in the same time they are executed
+ * MyValidators now compute an error messages in the same time they are executed
  *
  * @license
  * Copyright Google Inc. All Rights Reserved.

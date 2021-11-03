@@ -26,7 +26,6 @@ export class ReactiveSimplestComponent implements OnInit {
     //     [Validators.required, Validators.minLength(3), Validators.pattern(/titi/), this.myCustomValidatorForbiddenName]],
     // });
 
-
     // Using MyValidators instead of Angular Validators (Same API)
     // import {MyValidators} from '@gpeel/my-validators';
     this.form = this.fb.group({
@@ -71,7 +70,7 @@ export class ReactiveSimplestComponent implements OnInit {
 
   myCustomValidatorForbiddenName(control: AbstractControl): ValidationErrors | null {
     if (control.value?.includes('toto')) {
-      // FULL hard coded message for validation error here (see better solution in other example projects)
+      // FULL hard coded messages for validation error here (see better solution in other example projects)
       const error = {myCustomValidator: {msg: 'Toto is forbidden'}};
       Plog.validator('myCustomValidatorForbiddenName invoked', error);
       return error;

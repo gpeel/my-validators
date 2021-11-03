@@ -1,14 +1,17 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {MY_ALERT_SERVICE_API} from './alert/alert-api';
-import {DefaultAlertService} from './alert/default-alert.service';
 import {DebugFormComponent} from './debug-form/debug-form.component';
 import {DebugInputFieldComponent} from './debug-form/debug-input-field.component';
 import {MyErrorMessageComponent} from './error-messages/my-error-message.component';
 import {MyErrorDirective} from './error-messages/my-error.directive';
+import {MY_ALERT_SERVICE_API} from './pluggable-api/alert/alert-api';
+import {DefaultAlertService} from './pluggable-api/alert/default-alert.service';
+import {DefaultMessagesService} from './pluggable-api/messages/default-messages.service';
+import {MY_MESSAGES_SERVICE_API} from './pluggable-api/messages/messages-service-api';
+import {DefaultValidatorsService} from './pluggable-api/validators/default-validators.service';
+import {MY_VALIDATORS_SERVICE_API} from './pluggable-api/validators/validators-service-api';
 import {MySubmitIfValidAndDirtyDirective} from './submit-button/my-submit-if-valid-and-dirty.directive';
 import {MySubmitIfValidDirective} from './submit-button/my-submit-if-valid.directive';
-import {MY_MESSAGES_SERVICE_API} from './validators/messages-service-api';
 import {
   MyCheckboxRequiredValidator,
   MyEmailValidator,
@@ -16,10 +19,7 @@ import {
   MyMinLengthValidator,
   MyPatternValidator,
   MyRequiredValidator
-} from './validators/solution-1/my-validators-directive';
-import {HardCodedMsgValidatorsService} from './validators/solution-2-validators-service/hard-coded-msg-validators.service';
-import {DefaultMessagesService} from './validators/solution-3-messages-service/default-messages.service';
-import {DefaultValidatorsService} from './validators/solution-3-messages-service/default-validators.service';
+} from './validators/solution-1-simplest/my-validators-directive';
 
 
 @NgModule({
@@ -58,7 +58,6 @@ import {DefaultValidatorsService} from './validators/solution-3-messages-service
   entryComponents: [MyErrorMessageComponent],
   providers: [
     DefaultAlertService,
-    HardCodedMsgValidatorsService,
     DefaultValidatorsService,
     DefaultMessagesService,
     {
@@ -68,6 +67,10 @@ import {DefaultValidatorsService} from './validators/solution-3-messages-service
     {
       provide: MY_MESSAGES_SERVICE_API,
       useClass: DefaultMessagesService
+    },
+    {
+      provide: MY_VALIDATORS_SERVICE_API,
+      useClass: DefaultValidatorsService
     }
   ]
 })

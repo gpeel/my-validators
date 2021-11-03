@@ -1,7 +1,7 @@
 import {Inject, Injectable, Optional} from '@angular/core';
 import {AbstractControl, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {MY_MESSAGES_SERVICE_API, MyMessagesServiceInterface} from '../messages-service-api';
-import {MyValidatorsServiceInterface} from '../validators-service-api';
+import {MY_MESSAGES_SERVICE_API, MyMessagesServiceInterface} from '../messages/messages-service-api';
+import {MyValidatorsServiceInterface} from './validators-service-api';
 
 /**
  * This DefaultValidatorsService could be used to code a full custom  MyValidatorsServiceInterface.

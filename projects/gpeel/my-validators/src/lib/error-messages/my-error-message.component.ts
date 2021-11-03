@@ -133,7 +133,7 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
     if (this.control && this.control.errors) {
       Object.keys(this.control.errors)
         .forEach(key => {
-          // for each key, check if there is a custom message override
+          // for each key, check if there is a custom messages override
           const c: string | ErrorMsgFn = this.myErrorExtraMsg[key];
           if (c) {
             if (typeof c === 'string') {

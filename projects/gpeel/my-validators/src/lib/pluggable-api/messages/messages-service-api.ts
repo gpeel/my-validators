@@ -1,5 +1,5 @@
 import {InjectionToken} from '@angular/core';
-import {ErrorMsgMap} from '../error-messages/error-msg-api';
+import {ErrorMsgMap} from '../../error-messages/error-msg-api';
 
 export interface MyMessagesServiceInterface {
   getValidationMessageFor(key: string, errors?: ErrorMsgMap): string;
