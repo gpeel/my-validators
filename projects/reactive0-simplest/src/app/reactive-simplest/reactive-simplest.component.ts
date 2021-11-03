@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {makeDirty, MyValidators} from '@gpeel/my-validators';
 import {Plog} from '@gpeel/plog';
 
@@ -19,18 +19,22 @@ export class ReactiveSimplestComponent implements OnInit {
   ngOnInit() {
 
     // ANGULAR standard Validators
-    // import {Validators} from '@angular/forms';
     // Strategy Standard to build a Group With Angular Validators
+    //
+    // import {Validators} from '@angular/forms';
+    //
     // this.form = this.fb.group({
     //   name: [this.originalName,
     //     [Validators.required, Validators.minLength(3), Validators.pattern(/titi/), this.myCustomValidatorForbiddenName]],
     // });
 
     // Using MyValidators instead of Angular Validators (Same API)
+    //
     // import {MyValidators} from '@gpeel/my-validators';
+    //
     this.form = this.fb.group({
       name: [this.originalName,
-        [MyValidators.required,
+        [Validators.required,
           MyValidators.minLength(3),
           MyValidators.pattern(/titi/),
           this.myCustomValidatorForbiddenName]

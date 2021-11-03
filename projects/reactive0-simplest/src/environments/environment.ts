@@ -13,6 +13,12 @@ export const environment = {
     warn: 'color:orange',
     error: 'color:red; font-size:1rem;',
 
+    // Specific loggers for @gpeel/my-validators
+    validationCompute: ['color:orange', '@VALID'], // tracing validators when they compute
+    validationErrorMsgRefresh: ['color:orange', '@VALID_PERF'], // tracing refresh of <my-error-msg>
+    validationErrorMsgCreation: ['color:orange', '@ERROR_MSG_NEW'], // tracing creation of component <my-error-msg>
+    errorMsg: ['color:orange', '@VALID'], // used by <error-msg> deprecated
+
     // Performance logs
     perf: 'color:darkturquoise',
     perfComponent: ['color:darkturquoise', 'PERF-¤¤'],
@@ -52,12 +58,6 @@ export const environment = {
     errorState: ['color:#cf3c04', '@ERROR'], // to log error in Store
     effect: ['color:#8F72CF;font-weight:bold;', '@EFFECT'], // to log inside effect method (even if using @Effet is not advised)
     cache: ['color:blueviolet', '@EFFECT'],
-
-    // Specific loggers for @gpeel/my-validators
-    validationCompute: ['color:orange', '@VALID'], // tracing validators when they compute
-    validationErrorMsgRefresh: ['color:orange', '@VALID_PERF'], // tracing refresh of <my-error-msg>
-    validationErrorMsgCreation: ['color:orange', '@ERROR_MSG_NEW'], // tracing creation of component <my-error-msg>
-    errorMsg: ['color:orange', '@VALID'], // used by <error-msg> deprecated
 
     // network actions (interceptors)
     network: ['color:blue', 'HTTP'],
