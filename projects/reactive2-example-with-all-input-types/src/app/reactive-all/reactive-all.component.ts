@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {ErrorMsgMap, makeDirty, MyValidators} from '@gpeel/my-validators';
 import {Plog} from '@gpeel/plog';
+import {InterfaceStyleEnum, SubscriptionOptions, UserData} from './user-data';
 
 @Component({
   selector: 'reactive-all',
@@ -10,15 +11,17 @@ import {Plog} from '@gpeel/plog';
 })
 export class ReactiveAllComponent implements OnInit {
 
-  originalInstance = {
-    name1: 'Thomas1',
-    name2: 'Thomas2',
-    name3: '',
-    name4: 'Th',
-    name5: 'Thomas5',
-    name6: 'Thomas6',
+  subscriptionsTypeOptions: SubscriptionOptions[] = ['Lifetime', 'Annual', 'Monthly'];
+  originalUserData: UserData = {
+    id: 5,
+    name: undefined,
+    emailOffers: true,
+    interfaceStyle: undefined,
+    subscriptionType: undefined,
+    subscriptionTypeComboCva: undefined,
+    notes: undefined,
+    uneditedField: 'whatwhat'
   };
-  form!: FormGroup;
 
   extraMessagesOverride: ErrorMsgMap = {
     required: 'Override You must choose something !',
@@ -28,52 +31,39 @@ export class ReactiveAllComponent implements OnInit {
                 }) => `Override : Actual length is ${actualLength} and we need ${requiredLength}!`
   };
 
-  test4 = `
-    extraMessagesOverride: ErrorMsgMap = {
-      required: 'Override You must choose something !',
-      minlength: ({
-                    actualLength,
-                    requiredLength
-                  }) => \`Override : Actual length is \${actualLength} and we need \${requiredLength}!\`
-    };
-  `;
-
-  test5 = ` 
-  <input  myErrorClass="my-error-CUSTOM" myErrorMsg>
-  
-  .my-error-CUSTOM {
-    font-style: italic;
-    font-weight: bold;
-  }
-  `;
-
-  test6 = `
-        <my-error-msg #name6Errors="myErrorMsg" 
-                    myErrorClass="my-error-CUSTOM"
-                    [myErrorExtraMsg]="extraMessagesOverride"
-      ></my-error-msg>
-  `;
+  form!: FormGroup; // ! is used to get rid of STRICT null check for that variable, it is better than // @ts-ignore
+  InterfaceStyleEnum = InterfaceStyleEnum;
 
   constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
-    const validators = [Validators.required, MyValidators.minLength(3), MyValidators.pattern(/titi/), this.myCustomValidatorForbiddenName];
+    // extracting a bean of ONLY the edited fields
+    const {uneditedField, id, ...allotherFields} = this.originalUserData;
 
-    this.form = this.fb.group({
-      name1: [this.originalInstance.name1, validators],
-      name2: [this.originalInstance.name2, validators],
-      name3: [this.originalInstance.name3, validators],
-      name4: [this.originalInstance.name4, validators],
-      name5: [this.originalInstance.name5, validators],
-      name6: [this.originalInstance.name6, validators],
-    });
+    // allotherField is of type : Omit<UserData, 'uneditedField | 'id'>
+    this.form = this.fb.group(allotherFields);
+    console.log(allotherFields, this.form);
 
-    // For DEBUG and demo purpose, some logs to get NG feedbacks:
+    // Using MyValidators instead of Angular Validators (Same API)
+    // but MyValidators are adding the {msg : 'errorMessage'} to the return
+    this.form.get('name')!.setValidators([
+      MyValidators.required,
+      MyValidators.minLength(3),
+      MyValidators.pattern(/titi/),
+      this.myCustomValidatorForbiddenName]);
+    //
+    this.form.get('interfaceStyle')!.setValidators([MyValidators.required, MyValidators.minLength(3)]);
+    this.form.get('emailOffers')!.setValidators([MyValidators.requiredTrue]);
+    this.form.get('subscriptionType')!.setValidators([MyValidators.required]);
+    this.form.get('subscriptionTypeComboCva')!.setValidators([MyValidators.required]);
+    this.form.get('notes')!.setValidators([MyValidators.required]);
+
+    // For DEBUG and demo purpose, some logs to NG feedbacks:
     this.form.valueChanges.subscribe(d => Plog.colorGreen('form.valueChanges', d));
     this.form.statusChanges.subscribe(d => Plog.colorGreen('form.statusChanges', d));
-    this.form.get('name1')!.valueChanges.subscribe(d => Plog.colorGreen('name1.valueChanges', d));
-    this.form.get('name1')!.statusChanges.subscribe(d => Plog.colorGreen('name1.statusChanges', d));
+    this.form.get('name')!.valueChanges.subscribe(d => Plog.colorGreen('name.valueChanges', d));
+    this.form.get('name')!.statusChanges.subscribe(d => Plog.colorGreen('name.statusChanges', d));
 
   }
 
@@ -82,11 +72,17 @@ export class ReactiveAllComponent implements OnInit {
    */
   onSend() {
     console.log('in onSend: form ', this.form);
-    console.log('form.value ', this.form.value);
+    // Recomposing the data object
+    // Strategy ES5
+    // const result = Object.assign({}, this.originalUserData, this.form.value);
+    // Strategy ES6, using spread ...
+    const modifiedInstance = {...this.originalUserData, ...this.form.value};
+    console.log('Recomposed full DTO to call the Backend', modifiedInstance);
   }
 
   onCancel() {
-    this.form.reset({name: this.originalInstance});
+    const {uneditedField, id, ...allotherFields} = this.originalUserData;
+    this.form.reset(allotherFields);
   }
 
   onSubmit() {
@@ -95,25 +91,27 @@ export class ReactiveAllComponent implements OnInit {
   }
 
   onFillaCorrectForm() {
-    const correctinstance = {
-      name1: 'Aristotetiti1',
-      name2: 'Aristotetiti2',
-      name3: 'Aristotetiti3',
-      name4: 'Aristotetiti4',
-      name5: 'Aristotetiti5',
-      name6: 'Aristotetiti6',
+    const fillingValues: Omit<UserData, 'uneditedField' | 'id'> = {
+      name: 'Aristotetiti',
+      emailOffers: true,
+      interfaceStyle: InterfaceStyleEnum.Medium,
+      subscriptionType: 'Annual',
+      subscriptionTypeComboCva: 'Lifetime',
+      notes: ' a minimum of comments',
     };
-    this.form.setValue(correctinstance); // setValues does NOT turn the form into dirty;
-    this.form.markAsDirty({onlySelf: false}); // markAsDirty still does NOT => use the custom method makeDirty
+    // this.form.setValue(fillingValues); // setValues does NOT turn the form into dirty;
+    this.form.patchValue(fillingValues); // setValues does NOT turn the form into dirty;
+    // you must change the flas by yourself.
+    // This in normal behavior, only user actions on the browser changes the flags
+    this.form.markAsDirty({onlySelf: false}); // NOT enough => use the custom method makeDirty
     makeDirty(this.form);
   }
 
   myCustomValidatorForbiddenName(control: AbstractControl): ValidationErrors | null {
     if (control.value?.includes('toto')) {
-      // FULL hard coded messages for validation error here (see better solution in other example projects)
-      const error = {myCustomValidator: {msg: 'Toto is forbidden'}};
-      Plog.validator('myCustomValidatorForbiddenName invoked', error);
-      return error;
+      console.log('TOTO!!!!!!!!!!!!!!!!!!!!!!!!');
+      // FULL hard coded message here (see better solution in other folders)
+      return {myCustomValidator: {msg: 'Toto is forbidden'}};
     }
     return null;
   }

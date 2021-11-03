@@ -4,127 +4,62 @@
 
   <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off" spellcheck="false">
 
-    <!--  test 1 solution-1-simplest -->
-    <div class="card m-3">
-      <div class="card-body">
-        <div class="fst-italic mb-3">
-          <h4>Test 1 simplest</h4>
-          <div>Add the directive myErrorMsg to your input, That's all!</div>
-        </div>
-
-        <div class="form-group">
-          <label for="name1">Name1</label>
-          <input class="form-control" formControlName="name1" id="name1" myErrorMsg>
-        </div>
-
-      </div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input class="form-control" formControlName="name" id="name" myErrorMsg>
     </div>
 
-    <!--  test 2 -->
-    <div class="card m-3">
-      <div class="card-body">
-        <div class="fst-italic mb-3">
-          <h4>Test 2 where</h4>
-          <div>Showing error where you want. Here before the &lt;input> element</div>
-          <div>by creating explicitly a component &lt;my-error-msg></div>
-          <div>and linking it to the myErrorMsg directive with a template reference variable</div>
-        </div>
-
-        <my-error-msg #name2Errors="myErrorMsg"></my-error-msg>
-        <div class="form-group">
-          <label for="name2">Name2</label>
-          <input [myErrorMsg]="name2Errors" class="form-control" formControlName="name2" id="name2">
-        </div>
-
-      </div>
-    </div>
-    <!--  test 3 -->
-    <div class="card m-3">
-      <div class="card-body">
-        <div class="fst-italic mb-3">
-          <h4>Test 3 override an error message</h4>
-          <div>To override once a validation message,pass a param to the directive myErrorMsg by adding on the &lt;input>
-            element a parameter myErrorExtraMsg valued to an object with (property/value) pair needed for each specific
-            validator override.
-          </div>
-          <div>For example for the required message:</div>
-          <div>[myErrorExtraMsg]="{{'{'}}required : 'override for Required!'}"</div>
-        </div>
-
-        <div class="form-group">
-          <label for="name3">Name3</label>
-          <input [myErrorExtraMsg]="{required : 'override for Required!'}"
-                 class="form-control" formControlName="name3"
-                 id="name3"
-                 myErrorMsg>
-        </div>
-
-      </div>
+    <div class="form-check form-group mt-3 mb-3">
+      <input [myErrorExtraMsg]="extraMessagesOverride" [myErrorMsg]="emailOffersError"
+             class="form-check-input"
+             formControlName="emailOffers"
+             id="emailOffers"
+             type="checkbox">
+      <label class="form-check-label" for="emailOffers"> Email Special Offers </label>
+      <my-error-msg #emailOffersError="myErrorMsg" myErrorClass="my-error-CUSTOM"></my-error-msg>
     </div>
 
-    <!--  test 4 -->
-    <div class="card m-3">
-      <div class="card-body">
-        <div class="fst-italic">
-          <h4>Test 4 override an error message bis</h4>
-          <div>Of course you can factorize your message overrides into a property placed inside your @Component
-          </div>
-          <div>For example for the required message:</div>
-          <div>[myErrorExtraMsg]="extraMessagesOverride"</div>
-          <div>with</div>
-          <pre class="m-0">{{test4}}</pre>
-        </div>
-
-        <div class="form-group">
-          <label for="name4">Name</label>
-          <input [myErrorExtraMsg]="extraMessagesOverride" class="form-control" formControlName="name4" id="name4"
-                 myErrorMsg>
-        </div>
-
+    <div class="form-group">
+      <label class="no-margin-bottom">User Interface Style Radio</label>
+      <div *ngFor="let interfaceStyle of InterfaceStyleEnum | keyvalue" class="form-check">
+        <input [myErrorMsg]="interfaceStyleError" [value]="interfaceStyle.value"
+               class="form-check-input" formControlName="interfaceStyle"
+               id="interfaceStyle" type="radio">
+        <label class="form-check-label notbold" for="interfaceStyle">
+          {{interfaceStyle.value}}
+        </label>
       </div>
+      <my-error-msg #interfaceStyleError="myErrorMsg"></my-error-msg>
     </div>
 
-    <!--  test 5 -->
-    <div class="card m-3">
-      <div class="card-body">
-        <div class="fst-italic">
-          <h4>Test 5 class override</h4>
-          <div>You can define a global style .my-error-CUSTOM (or the name you want) in style.(s)css, and then give this
-            name as parameter to the myErrorClass in the &lt;input> as shown below:
-          </div>
-          <pre class="m-0">{{test5}}</pre>
-        </div>
+    <debug-input-field [group]="form" prop="subscriptionType"></debug-input-field>
 
-        <div class="form-group">
-          <label for="name5">Name5</label>
-          <input class="form-control" formControlName="name5" id="name5" myErrorClass="my-error-CUSTOM" myErrorMsg>
-        </div>
-
-      </div>
+    <div class="form-group">
+      <label for="subscriptionType">Subscription Type (*)</label>
+      <select class="form-control"
+              formControlName="subscriptionTypeComboCva"
+              id="subscriptionType" myErrorMsg>
+        <option>Monthly</option>
+        <option>Annual</option>
+        <option>Lifetime</option>
+      </select>
     </div>
 
-    <!--  test 6 -->
-    <div class="card m-3">
-      <div class="fst-italic">
-        <h4>Test 6 override on component &lt;my-error-msg></h4>
-        <div>You find the same customization on the component &lt;my-error-msg> than on the input: ie class
-          customization and message override. So when you need to create
-          &lt;my-error-msg> explicitly it feels more natural to customize ditectly on that component,
-          Example:
-        </div>
-        <pre class="m-0">{{test6}}</pre>
-      </div>
 
-      <div class="card-body">
-        <div class="form-group">
-          <label for="name6">Name</label>
-          <input [myErrorMsg]="name6Errors" class="form-control" formControlName="name6" id="name6">
-          <my-error-msg #name6Errors="myErrorMsg"
-                        [myErrorExtraMsg]="extraMessagesOverride"
-                        myErrorClass="my-error-CUSTOM"
-          ></my-error-msg>
-        </div>
-      </div>
+    <debug-input-field [group]="form" prop="subscriptionTypeComboCva"></debug-input-field>
+
+    <div class="form-group">
+      <label for="subscriptionTypeCVA">Subscription Type by CVA(*)</label>
+      <cva-combo [options]="subscriptionsTypeOptions" formControlName="subscriptionTypeComboCva"
+                 id="subscriptionTypeCVA"></cva-combo>
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Notes</label>
+      <textarea class="form-control" formControlName="notes"
+                id="notes"
+                myErrorMsg
+                rows="3"></textarea>
     </div>
 
     <div class="mt-5">
@@ -133,7 +68,7 @@
       <!--      so ne need to define the type="button" to prevent submitting the form-->
       <button (mySubmitIfValidAndDirty)="onSend()" class="btn btn-primary">Send with dirtyfication</button>
     </div>
-    <!--    for those 2 buttons : you HAVA to add type="button" to prevent the (submit) event to be emitted -->
+    <!--    for those 2 buttons : you HAVE to add type="button" to prevent the (submit) event to be emitted -->
     <!--    otherwise you will get onSubmit() method executed as well-->
     <div>
       <button (click)="onCancel()" class="btn btn-danger" type="button">Cancel (returns Form to original values)
@@ -144,7 +79,7 @@
   </form>
 
   <debug-form [form]="form" class="m-2"></debug-form>
-  <!--  <debug-input-field [group]="form" prop="name"></debug-input-field>-->
+  <debug-input-field [group]="form" prop="name"></debug-input-field>
 
 
 </div>

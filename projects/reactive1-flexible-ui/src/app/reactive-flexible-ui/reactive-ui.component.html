@@ -133,7 +133,7 @@
       <!--      so ne need to define the type="button" to prevent submitting the form-->
       <button (mySubmitIfValidAndDirty)="onSend()" class="btn btn-primary">Send with dirtyfication</button>
     </div>
-    <!--    for those 2 buttons : you HAVA to add type="button" to prevent the (submit) event to be emitted -->
+    <!--    for those 2 buttons : you HAVE to add type="button" to prevent the (submit) event to be emitted -->
     <!--    otherwise you will get onSubmit() method executed as well-->
     <div>
       <button (click)="onCancel()" class="btn btn-danger" type="button">Cancel (returns Form to original values)

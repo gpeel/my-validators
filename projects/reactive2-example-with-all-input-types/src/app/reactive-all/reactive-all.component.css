@@ -3,6 +3,6 @@
     border-color: red;
 }
 
-label {
+label:not([class*="notbold"]) {
     font-weight: bold;
 }

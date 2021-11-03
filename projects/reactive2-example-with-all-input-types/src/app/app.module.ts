@@ -7,12 +7,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
 
 import {AppComponent} from './app.component';
+import {CvaComboComponent} from './reactive-all/cva-combo.component';
 import {ReactiveAllComponent} from './reactive-all/reactive-all.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ReactiveAllComponent,
+    CvaComboComponent,
   ],
   imports: [
     FormsModule,
