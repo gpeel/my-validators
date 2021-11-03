@@ -92,7 +92,7 @@ present in control.errors and show it HTML.
 Since those 2 steps are completely disctinc, you can elaborate your error.msg as you want (inside an Angular service,
 connected to a i18n framewotk to get translation ..etc).
 
-See more realistic and flexible examples : reactive3-flexible and reactive4-i18n-transloco
+See more realistic and flexible examples : reactive-flexible and reactive-i18n-transloco
 
 ## Plog install in your main project (OPTIONNAL)
 
