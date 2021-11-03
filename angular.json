@@ -378,9 +378,121 @@
           }
         }
       }
+    },
+    "reactive3-flexible-validators": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/reactive3-flexible-validators",
+      "sourceRoot": "projects/reactive3-flexible-validators/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/reactive3-flexible-validators",
+            "index": "projects/reactive3-flexible-validators/src/index.html",
+            "main": "projects/reactive3-flexible-validators/src/main.ts",
+            "polyfills": "projects/reactive3-flexible-validators/src/polyfills.ts",
+            "tsConfig": "projects/reactive3-flexible-validators/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/reactive3-flexible-validators/src/favicon.ico",
+              "projects/reactive3-flexible-validators/src/assets"
+            ],
+            "styles": [
+              "projects/reactive3-flexible-validators/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/reactive3-flexible-validators/src/environments/environment.ts",
+                  "with": "projects/reactive3-flexible-validators/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "reactive3-flexible-validators:build:production"
+            },
+            "development": {
+              "browserTarget": "reactive3-flexible-validators:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "reactive3-flexible-validators:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/reactive3-flexible-validators/src/test.ts",
+            "polyfills": "projects/reactive3-flexible-validators/src/polyfills.ts",
+            "tsConfig": "projects/reactive3-flexible-validators/tsconfig.spec.json",
+            "karmaConfig": "projects/reactive3-flexible-validators/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/reactive3-flexible-validators/src/favicon.ico",
+              "projects/reactive3-flexible-validators/src/assets"
+            ],
+            "styles": [
+              "projects/reactive3-flexible-validators/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/reactive3-flexible-validators/**/*.ts",
+              "projects/reactive3-flexible-validators/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "reactive2-example-with-all-input-types",
+  "defaultProject": "reactive3-flexible-validators",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }
