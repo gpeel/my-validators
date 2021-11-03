@@ -1,16 +1,30 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {MyValidatorsModule} from '@gpeel/my-validators';
+import {PlogModule} from '@gpeel/plog';
+import {environment} from '../environments/environment';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
+import {ReactiveSimplestComponent} from './reactive-simplest/reactive-simplest.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ReactiveSimplestComponent,
   ],
   imports: [
-    BrowserModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    //
+    MyValidatorsModule,
+    PlogModule.forRoot(environment),
+    NgbModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
+

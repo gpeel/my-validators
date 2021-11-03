@@ -21,12 +21,18 @@ import {Plog} from '@gpeel/plog';
   selector: 'debug-input-field',
   template: `
     <pre style="font-size: 12px">
+
       Field.{{prop}}.value = {{control?.value}}
       {{prop}}.blur={{control?.touched}}
       {{prop}}.dirty={{control?.dirty}}
       {{prop}}.errors = {{control?.errors | json}}
     </pre>
   `,
+  styles : [`
+      pre {
+          white-space: pre-line; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+      }
+  `]
 })
 // @formatter:on
 export class DebugInputFieldComponent implements OnInit {

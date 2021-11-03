@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>User Data Settings</h2>
+  <ng-content></ng-content>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off" spellcheck="false">
+
+    <!--  test 1 simplest -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input class="form-control" formControlName="name" id="name" myErrorMsg>
+    </div>
+
+    <debug-input-field [group]="form" class="p-2" prop="name"></debug-input-field>
+
+    <div>
+      <button class="btn btn-primary">Send</button>
+      <button (mySubmitIfValidAndDirty)="onSend()" class="btn btn-primary">Send with dirtyfication</button>
+    </div>
+    <div>
+      <button (click)="onCancel()" class="btn btn-danger">Cancel (returns Form to original values)</button>
+      <button (click)="onFillaCorrectForm()" class="btn btn-dark">Fill a correct Form</button>
+    </div>
+
+  </form>
+
+  <debug-form [form]="form"></debug-form>
+  <!--  <debug-input-field [group]="form" prop="name"></debug-input-field>-->
+
+
+</div>

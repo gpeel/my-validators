@@ -1,6 +1,5 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {MyPerfModule} from '@gpeel/my-perf-tools';
 import {MY_ALERT_SERVICE_API} from './alert/alert-api';
 import {DefaultAlertService} from './alert/default-alert.service';
 import {DebugFormComponent} from './debug-form/debug-form.component';
@@ -26,7 +25,6 @@ import {DefaultValidatorsService} from './validators/solution-3-messages-service
 @NgModule({
   imports: [
     CommonModule,
-    MyPerfModule,
   ],
   declarations: [
     DebugFormComponent,

@@ -2,11 +2,12 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: `
+
+    <user-reactive-form-1></user-reactive-form-1>
+
+  `
 })
 export class AppComponent {
-  title = 'reactive0-simplest';
-
 
 }

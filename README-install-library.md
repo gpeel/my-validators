@@ -46,11 +46,15 @@ If you Don'T want to build, but have you lib as simple sources, now you can chan
 
 * MODIFED by Gauthier
 
-      "paths": {
-          "@gpeel/my-validators": ["src/public-api.ts"]
-      }
+````
+    "paths": {
+      "@gpeel/my-validators": [
+        "projects/gpeel/my-validators/src/public-api.ts"
+      ]
+    },
+````
 
-##           
+##            
 
 In the lib .eslintrc.json the generated path is wrong, change it from :
 line 2

@@ -42,6 +42,7 @@ import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
 @Component({
   selector: 'my-error-msg',
   template: `
+    {{onRefreshCounter()}}
     <ng-container *ngIf="errors && (this.control.dirty || this.control.touched)">
       <div [ngClass]="customClassObject" class="my-error-GLOBAL">
         <label *ngFor="let message of mymsgs">{{message}}</label>
@@ -72,10 +73,10 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
   customClassObject: any;
   mymsgs: string[] = [];
   id = ''; // id of corresponding <input id=xx> if defined
-
+  counter: number = 1;
 
   constructor(private cd: ChangeDetectorRef) {
-    Plog.createComponent('<pee-error-msg>');
+    Plog.validationErrorMsgCreation('<pee-error-msg>');
   }
 
   @Input() set myErrorClass(className: string) {
@@ -152,9 +153,12 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
       this.errors = false;
     }
     const msg = this.id ? `${this.id}.valueChanges() extracting` : 'c.valueChanges() extracting';
-    Plog.errorMsg(msg, this.errors ? this.mymsgs : 'no-errors');
+    Plog.validationCompute(msg, this.errors ? this.mymsgs : 'no-errors');
   }
 
+  onRefreshCounter() {
+    Plog.validationErrorMsgRefresh(`MY-ERROR-MSG ${this.id} ${this.counter++}`);
+  }
 
 }
 
