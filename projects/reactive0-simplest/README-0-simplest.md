@@ -84,7 +84,24 @@ This is a 2-steps process
 
 1- the MyValidators should compute a "msg" property when invoked ny Angular. Here the example is using MyValidators from
 from '@gpeel/my-validators' where the standard validator method have been added a 'msg' into the return. it is the
-simplest way of doing it, teh message is hard-coded in english.
+simplest way of doing it, the message is hard-coded in english.
+
+Example for 2 validation errors with minLength and pattern validators:
+
+````typescript
+name.errors = {
+  "minlength": {
+    "requiredLength": 3,
+    "actualLength": 2,
+    "msg": "the length should be more than 3 characters"
+  },
+  "pattern": {
+    "requiredPattern": "/titi/",
+    "actualValue": "Th",
+    "msg": "the field should respect the pattern /titi/ "
+  }
+}
+````
 
 2- then the ui component <my-error-msg> extract control.errors.<validators-name>.msg for each <validator-name> key
 present in control.errors and show it HTML.
