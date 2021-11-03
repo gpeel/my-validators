@@ -30,18 +30,16 @@ export class ReactiveUiComponent implements OnInit {
 
   test4 = `
     extraMessagesOverride: ErrorMsgMap = {
-    required: 'Override You must choose something !',
-    minlength: ({
-                  actualLength,
-                  requiredLength
-                }) => \`Override : Actual length is \${actualLength} and we need \${requiredLength}!\`
-  };
+      required: 'Override You must choose something !',
+      minlength: ({
+                    actualLength,
+                    requiredLength
+                  }) => \`Override : Actual length is \${actualLength} and we need \${requiredLength}!\`
+    };
   `;
 
   test5 = ` 
-  You can add the parameter myErrorClass in the <input> as 
   <input  myErrorClass="my-error-CUSTOM" myErrorMsg>
-  And define a global style in style.(s)css:
   
   .my-error-CUSTOM {
     font-style: italic;
@@ -50,10 +48,10 @@ export class ReactiveUiComponent implements OnInit {
   `;
 
   test6 = `
-                <my-error-msg #name6Errors="myErrorMsg" 
-                            myErrorClass="my-error-CUSTOM"
-                            [myErrorExtraMsg]="extraMessagesOverride"
-              ></my-error-msg>
+        <my-error-msg #name6Errors="myErrorMsg" 
+                    myErrorClass="my-error-CUSTOM"
+                    [myErrorExtraMsg]="extraMessagesOverride"
+      ></my-error-msg>
   `;
 
   constructor(private fb: FormBuilder) {
