@@ -30,12 +30,13 @@
 
     <!--  test 3 -->
     <div class="m-4 fst-italic">
-      <h4>Test 3 override locally an error message</h4>
-      <div>To override once a validation message</div>
-      <div>Pass a param to the directive myErrorMsg by adding on the &lt;input> element</div>
-      <div> a parameter myErrorExtraMsg valued to an object with property/value needed for each specific validator</div>
+      <h4>Test 3 locally override an error message</h4>
+      <div>To override once a validation message,pass a param to the directive myErrorMsg by adding on the &lt;input>
+        element a parameter myErrorExtraMsg valued to an object with (property/value) pair needed for each specific
+        validator override.
+      </div>
       <div>For example for the required message:</div>
-      <div>[myErrorExtraMsg]="{{required : 'override for Required!'}"</div>
+      <div>[myErrorExtraMsg]="{{'{'}}required : 'override for Required!'}"</div>
     </div>
     <div class="form-group">
       <label for="name3">Name3</label>
