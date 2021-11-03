@@ -10,12 +10,11 @@ https://valor-software.com/ngx-bootstrap/#/documentation#getting-started
 
 You have to choose between ngx-bootstrap or ng-bootstrap
 
-        npm install bootstrap
-
         ng add @ng-bootstrap/ng-bootstrap
 
 OR
 
+            npm install bootstrap
             ng add ngx-bootstrap
 
 Extract from https://www.techiediaries.com/angular-bootstrap/

@@ -3,11 +3,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {MyValidatorsModule} from '@gpeel/my-validators';
 import {PlogModule} from '@gpeel/plog';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
 
 import {AppComponent} from './app.component';
 import {ReactiveSimplestComponent} from './reactive-simplest/reactive-simplest.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [

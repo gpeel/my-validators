@@ -39,10 +39,10 @@ export class ReactiveSimplestComponent implements OnInit {
     });
 
     // For DEBUG and demo purpose, some logs to get NG feedbacks:
-    this.form.valueChanges.subscribe(d => console.log('form.valueChanges', d));
-    this.form.statusChanges.subscribe(d => console.log('form.statusChanges', d));
-    this.form.get('name')!.valueChanges.subscribe(d => console.log('name.valueChanges', d));
-    this.form.get('name')!.statusChanges.subscribe(d => console.log('name.statusChanges', d));
+    this.form.valueChanges.subscribe(d => Plog.colorGreen('form.valueChanges', d));
+    this.form.statusChanges.subscribe(d => Plog.colorGreen('form.statusChanges', d));
+    this.form.get('name')!.valueChanges.subscribe(d => Plog.colorGreen('name.valueChanges', d));
+    this.form.get('name')!.statusChanges.subscribe(d => Plog.colorGreen('name.statusChanges', d));
 
   }
 
@@ -51,7 +51,6 @@ export class ReactiveSimplestComponent implements OnInit {
    */
   onSend() {
     console.log('in onSend: form ', this.form);
-    console.log('in onSubmit: form ', this.form);
     console.log('form.value ', this.form.value);
   }
 
@@ -66,15 +65,15 @@ export class ReactiveSimplestComponent implements OnInit {
 
   onFillaCorrectForm() {
     this.form.setValue({name: 'Aristotetiti'}); // setValues does NOT turn the form into dirty;
-    this.form.markAsDirty({onlySelf: false}); // still NOT enough => use the custom method makeDirty
+    this.form.markAsDirty({onlySelf: false}); // markAsDirty still does NOT => use the custom method makeDirty
     makeDirty(this.form);
   }
 
   myCustomValidatorForbiddenName(control: AbstractControl): ValidationErrors | null {
     if (control.value?.includes('toto')) {
+      // FULL hard coded message for validation error here (see better solution in other example projects)
       const error = {myCustomValidator: {msg: 'Toto is forbidden'}};
       Plog.validator('myCustomValidatorForbiddenName invoked', error);
-      // FULL hard coded message here (see better solution in other example projects)
       return error;
     }
     return null;

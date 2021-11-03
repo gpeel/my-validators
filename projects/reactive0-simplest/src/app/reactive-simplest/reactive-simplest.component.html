@@ -14,16 +14,21 @@
 
     <div>
       <button class="btn btn-primary">Send</button>
+      <!--      mySubmitIfValidAndDirty stopPropagation and preventDefault for the button -->
+      <!--      so ne need to define the type="button" to prevent submitting the form-->
       <button (mySubmitIfValidAndDirty)="onSend()" class="btn btn-primary">Send with dirtyfication</button>
     </div>
+    <!--    for those 2 buttons : you HAVA to add type="button" to prevent the (submit) event to be emitted -->
+    <!--    otherwise you will get onSubmit() method executed as well-->
     <div>
-      <button (click)="onCancel()" class="btn btn-danger">Cancel (returns Form to original values)</button>
-      <button (click)="onFillaCorrectForm()" class="btn btn-dark">Fill a correct Form</button>
+      <button (click)="onCancel()" class="btn btn-danger" type="button">Cancel (returns Form to original values)
+      </button>
+      <button (click)="onFillaCorrectForm()" class="btn btn-dark" type="button">Fill a correct Form</button>
     </div>
 
   </form>
 
-  <debug-form [form]="form"></debug-form>
+  <debug-form [form]="form" class="m-2"></debug-form>
   <!--  <debug-input-field [group]="form" prop="name"></debug-input-field>-->
 
 

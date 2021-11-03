@@ -13,16 +13,20 @@ import {SubmitIfAbstractDirective} from './submit-if-abstract.directive';
  * by :
  * <button (mySubmitIfValidAndDirty)="onYourLocalMethod()">save</button>
  *
- * Effect: the button is not disabled, so when clicking this directive will
+ * Effect: the button should not be not disabled, then when clicking this directive will
  * make any validation error to appear on Validation Messages
- * so the user could correct its inputs to make it valid.
+ * so the user could correct its inputs and make the form be valid.
  * If the form.valid is true => the event (tsSubmitIfValid) is emitted,
  * so the save() method is only then executed.
- * An alertService is invoked  (if provided on MY_ALERT_SERVICE_API)
- * - if not valid to show the message : 'You must correct your form before saving it'.
- * - if pristine to show the message : 'Your FORM is pristine! No action executed';
+ * An alertService is invoked  (if provided on MY_ALERT_SERVICE_API Token)
+ * - if form not valid to show the message : 'You must correct your form before saving it'.
+ * - if form pristine to show the message : 'Your FORM is pristine! No action executed';
  *
- *   // REQUIRED messages for the submit button in the default message service
+ * You can also provide a MessageService impleme,ting MyMessagesServiceInterface,
+ * if you do, return a message or the keys 'pristineForm' and 'invalidForm' to the method
+ * getValidationMessageFor(key: string, errors?: ErrorMsgMap): string;
+ *
+ * For example :
  *   pristineForm: 'Your form is pristine! No action executed',
  *   invalidForm: 'You must correct your form before saving it',
  *
@@ -37,7 +41,7 @@ import {SubmitIfAbstractDirective} from './submit-if-abstract.directive';
 })
 export class MySubmitIfValidAndDirtyDirective extends SubmitIfAbstractDirective {
 
-  @Output('mySubmitIfValidAndDirty') valid = new EventEmitter<void>(); // tslint:disable-line:no-output-rename
+  @Output('mySubmitIfValidAndDirty') valid = new EventEmitter<void>();
 
   constructor(injector: Injector,
               @Optional() @Inject(MY_ALERT_SERVICE_API) private alertService: MyAlertServiceInterface,
