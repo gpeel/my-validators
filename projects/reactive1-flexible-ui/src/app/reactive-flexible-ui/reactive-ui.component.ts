@@ -38,6 +38,24 @@ export class ReactiveUiComponent implements OnInit {
   };
   `;
 
+  test5 = ` 
+  You can add the parameter myErrorClass in the <input> as 
+  <input  myErrorClass="my-error-CUSTOM" myErrorMsg>
+  And define a global style in style.(s)css:
+  
+  .my-error-CUSTOM {
+    font-style: italic;
+    font-weight: bold;
+  }
+  `;
+
+  test6 = `
+                <my-error-msg #name6Errors="myErrorMsg" 
+                            myErrorClass="my-error-CUSTOM"
+                            [myErrorExtraMsg]="extraMessagesOverride"
+              ></my-error-msg>
+  `;
+
   constructor(private fb: FormBuilder) {
   }
 

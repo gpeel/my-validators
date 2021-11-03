@@ -2,3 +2,8 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+.my-error-CUSTOM {
+  font-style: italic;
+  font-weight: bold;
+}

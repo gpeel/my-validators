@@ -5,84 +5,126 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off" spellcheck="false">
 
     <!--  test 1 solution-1-simplest -->
-    <div class="m-4 fst-italic">
-      <h4>Test 1 simplest</h4>
-      <div>Add the directive myErrorMsg to your input, That's all!</div>
-    </div>
-    <div class="form-group">
-      <label for="name1">Name1</label>
-      <input class="form-control" formControlName="name1" id="name1" myErrorMsg>
+    <div class="card m-3">
+      <div class="card-body">
+        <div class="fst-italic mb-3">
+          <h4>Test 1 simplest</h4>
+          <div>Add the directive myErrorMsg to your input, That's all!</div>
+        </div>
+
+        <div class="form-group">
+          <label for="name1">Name1</label>
+          <input class="form-control" formControlName="name1" id="name1" myErrorMsg>
+        </div>
+
+      </div>
     </div>
 
     <!--  test 2 -->
-    <div class="m-4 fst-italic">
-      <h4>Test 2 where</h4>
-      <div>Showing error where you want. Here before the &lt;input> element</div>
-      <div>by creating explicitly a component &lt;my-error-msg></div>
-      <div>and linking it to the myErrorMsg directive with a template reference variable</div>
-    </div>
+    <div class="card m-3">
+      <div class="card-body">
+        <div class="fst-italic mb-3">
+          <h4>Test 2 where</h4>
+          <div>Showing error where you want. Here before the &lt;input> element</div>
+          <div>by creating explicitly a component &lt;my-error-msg></div>
+          <div>and linking it to the myErrorMsg directive with a template reference variable</div>
+        </div>
 
-    <my-error-msg #name2Errors="myErrorMsg"></my-error-msg>
-    <div class="form-group">
-      <label for="name2">Name2</label>
-      <input [myErrorMsg]="name2Errors" class="form-control" formControlName="name2" id="name2">
-    </div>
+        <my-error-msg #name2Errors="myErrorMsg"></my-error-msg>
+        <div class="form-group">
+          <label for="name2">Name2</label>
+          <input [myErrorMsg]="name2Errors" class="form-control" formControlName="name2" id="name2">
+        </div>
 
-    <!--  test 3 -->
-    <div class="m-4 fst-italic">
-      <h4>Test 3 locally override an error message</h4>
-      <div>To override once a validation message,pass a param to the directive myErrorMsg by adding on the &lt;input>
-        element a parameter myErrorExtraMsg valued to an object with (property/value) pair needed for each specific
-        validator override.
       </div>
-      <div>For example for the required message:</div>
-      <div>[myErrorExtraMsg]="{{'{'}}required : 'override for Required!'}"</div>
     </div>
-    <div class="form-group">
-      <label for="name3">Name3</label>
-      <input [myErrorExtraMsg]="{required : 'override for Required!'}"
-             class="form-control" formControlName="name3"
-             id="name3"
-             myErrorMsg>
+    <!--  test 3 -->
+    <div class="card m-3">
+      <div class="card-body">
+        <div class="fst-italic mb-3">
+          <h4>Test 3 override an error message</h4>
+          <div>To override once a validation message,pass a param to the directive myErrorMsg by adding on the &lt;input>
+            element a parameter myErrorExtraMsg valued to an object with (property/value) pair needed for each specific
+            validator override.
+          </div>
+          <div>For example for the required message:</div>
+          <div>[myErrorExtraMsg]="{{'{'}}required : 'override for Required!'}"</div>
+        </div>
+
+        <div class="form-group">
+          <label for="name3">Name3</label>
+          <input [myErrorExtraMsg]="{required : 'override for Required!'}"
+                 class="form-control" formControlName="name3"
+                 id="name3"
+                 myErrorMsg>
+        </div>
+
+      </div>
     </div>
 
     <!--  test 4 -->
-    <div class="m-4 fst-italic">
-      <h4>Test 4 locally override an error message (detail)</h4>
-      <div>Of course you can factorize your message overrides into a property placed inside your @Component
+    <div class="card m-3">
+      <div class="card-body">
+        <div class="fst-italic">
+          <h4>Test 4 override an error message bis</h4>
+          <div>Of course you can factorize your message overrides into a property placed inside your @Component
+          </div>
+          <div>For example for the required message:</div>
+          <div>[myErrorExtraMsg]="extraMessagesOverride"</div>
+          <div>with</div>
+          <pre class="m-0">{{test4}}</pre>
+        </div>
+
+        <div class="form-group">
+          <label for="name4">Name</label>
+          <input [myErrorExtraMsg]="extraMessagesOverride" class="form-control" formControlName="name4" id="name4"
+                 myErrorMsg>
+        </div>
+
       </div>
-      <div>For example for the required message:</div>
-      <div>[myErrorExtraMsg]="extraMessagesOverride"</div>
-      <div>with</div>
-      <pre>{{test4}}</pre>
-    </div>
-
-
-    <div class="form-group">
-      <label for="name4">Name</label>
-      <input [myErrorExtraMsg]="extraMessagesOverride" class="form-control" formControlName="name4" id="name4"
-             myErrorMsg>
     </div>
 
     <!--  test 5 -->
+    <div class="card m-3">
+      <div class="card-body">
+        <div class="fst-italic">
+          <h4>Test 5 class override</h4>
+          <pre class="m-0">{{test5}}</pre>
+        </div>
 
-    <!--    <div class="form-group">-->
-    <!--      <label for="name">Name</label>-->
-    <!--      <input id="name" class="form-control" formControlName="name" myErrorMsg myErrorClass="my-error-CUSTOM">-->
-    <!--    </div>-->
+        <div class="form-group">
+          <label for="name5">Name5</label>
+          <input class="form-control" formControlName="name5" id="name5" myErrorClass="my-error-CUSTOM" myErrorMsg>
+        </div>
+
+      </div>
+    </div>
 
     <!--  test 6 -->
+    <div class="card m-3">
+      <div class="fst-italic">
+        <h4>Test 6 override on component &lt;my-error-msg></h4>
+        <div>You find the same customization on the component &lt;my-error-msg> than on the input: ie class
+          customization and message override. So when you need to create
+          &lt;my-error-msg> explicitly it feels more natural to customize ditectly on that component,
+          Example:
+        </div>
+        <pre class="m-0">{{test6}}</pre>
+      </div>
 
-    <!--    <div class="form-group">-->
-    <!--      <label for="name">Name</label>-->
-    <!--      <input id="name" class="form-control" formControlName="name" [myErrorMsg]="nameErrors">-->
-    <!--      <my-error-msg #nameErrors="myErrorMsg" myErrorClass="my-error-CUSTOM"></my-error-msg>-->
-    <!--    </div>-->
+      <div class="card-body">
+        <div class="form-group">
+          <label for="name6">Name</label>
+          <input [myErrorMsg]="name6Errors" class="form-control" formControlName="name6" id="name6">
+          <my-error-msg #name6Errors="myErrorMsg"
+                        [myErrorExtraMsg]="extraMessagesOverride"
+                        myErrorClass="my-error-CUSTOM"
+          ></my-error-msg>
+        </div>
+      </div>
+    </div>
 
-
-    <debug-input-field [group]="form" class="p-2" prop="name"></debug-input-field>
-
-    <div>
+    <div class="mt-5">
       <button class="btn btn-primary">Send</button>
       <!--      mySubmitIfValidAndDirty stopPropagation and preventDefault for the button -->
       <!--      so ne need to define the type="button" to prevent submitting the form-->
