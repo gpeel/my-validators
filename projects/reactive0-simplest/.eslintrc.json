@@ -10,8 +10,8 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/reactive-simplest/tsconfig.app.json",
-          "projects/reactive-simplest/tsconfig.spec.json"
+          "tsconfig.app.json",
+          "tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },
