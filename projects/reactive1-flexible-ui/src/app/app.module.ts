@@ -7,12 +7,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
 
 import {AppComponent} from './app.component';
-import {ReactiveSimplestComponent} from './reactive-simplest/reactive-simplest.component';
+import {ReactiveUiComponent} from './reactive-flexible-ui/reactive-ui.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReactiveSimplestComponent,
+    ReactiveUiComponent,
   ],
   imports: [
     FormsModule,

@@ -4,7 +4,7 @@ import {makeDirty, MyValidators} from '@gpeel/my-validators';
 import {Plog} from '@gpeel/plog';
 
 @Component({
-  selector: 'user-reactive-form-1',
+  selector: 'reactive-simplest',
   templateUrl: 'reactive-simplest.component.html',
   styleUrls: ['reactive-simplest.component.css']
 })

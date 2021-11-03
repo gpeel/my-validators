@@ -1,0 +1,94 @@
+<div class="container">
+  <h2>User Data Settings</h2>
+  <ng-content></ng-content>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off" spellcheck="false">
+
+    <!--  test 1 solution-1-simplest -->
+    <div class="m-4 fst-italic">
+      <h4>Test 1 simplest</h4>
+      <div>Add the directive myErrorMsg to your input, That's all!</div>
+    </div>
+    <div class="form-group">
+      <label for="name1">Name1</label>
+      <input class="form-control" formControlName="name1" id="name1" myErrorMsg>
+    </div>
+
+    <!--  test 2 -->
+    <div class="m-4 fst-italic">
+      <h4>Test 2 where</h4>
+      <div>Showing error where you want. Here before the &lt;input> element</div>
+      <div>by creating explicitly a component &lt;my-error-msg></div>
+      <div>and linking it to the myErrorMsg directive with a template reference variable</div>
+    </div>
+
+    <my-error-msg #name2Errors="myErrorMsg"></my-error-msg>
+    <div class="form-group">
+      <label for="name2">Name2</label>
+      <input [myErrorMsg]="name2Errors" class="form-control" formControlName="name2" id="name2">
+    </div>
+
+    <!--  test 3 -->
+    <div class="m-4 fst-italic">
+      <h4>Test 3 override locally an error message</h4>
+      <div>To override once a validation message</div>
+      <div>Pass a param to the directive myErrorMsg by adding on the &lt;input> element</div>
+      <div> a parameter myErrorExtraMsg valued to an object with property/value needed for each specific validator</div>
+      <div>For example for the required message:</div>
+      <div>[myErrorExtraMsg]="{{required : 'override for Required!'}"</div>
+    </div>
+    <div class="form-group">
+      <label for="name3">Name3</label>
+      <input [myErrorExtraMsg]="{required : 'override for Required!'}"
+             class="form-control" formControlName="name3"
+             id="name3"
+             myErrorMsg>
+    </div>
+
+    <!--  test 4 -->
+
+    <!--    <div class="form-group">-->
+    <!--      <label for="name">Name</label>-->
+    <!--      <input id="name" class="form-control" formControlName="name" myErrorMsg-->
+    <!--             [myErrorExtraMsg]="extraMessagesOverride">-->
+    <!--    </div>-->
+
+    <!--  test 5 -->
+
+    <!--    <div class="form-group">-->
+    <!--      <label for="name">Name</label>-->
+    <!--      <input id="name" class="form-control" formControlName="name" myErrorMsg myErrorClass="my-error-CUSTOM">-->
+    <!--    </div>-->
+
+    <!--  test 6 -->
+
+    <!--    <div class="form-group">-->
+    <!--      <label for="name">Name</label>-->
+    <!--      <input id="name" class="form-control" formControlName="name" [myErrorMsg]="nameErrors">-->
+    <!--      <my-error-msg #nameErrors="myErrorMsg" myErrorClass="my-error-CUSTOM"></my-error-msg>-->
+    <!--    </div>-->
+
+
+    <debug-input-field [group]="form" class="p-2" prop="name"></debug-input-field>
+
+    <div>
+      <button class="btn btn-primary">Send</button>
+      <!--      mySubmitIfValidAndDirty stopPropagation and preventDefault for the button -->
+      <!--      so ne need to define the type="button" to prevent submitting the form-->
+      <button (mySubmitIfValidAndDirty)="onSend()" class="btn btn-primary">Send with dirtyfication</button>
+    </div>
+    <!--    for those 2 buttons : you HAVA to add type="button" to prevent the (submit) event to be emitted -->
+    <!--    otherwise you will get onSubmit() method executed as well-->
+    <div>
+      <button (click)="onCancel()" class="btn btn-danger" type="button">Cancel (returns Form to original values)
+      </button>
+      <button (click)="onFillaCorrectForm()" class="btn btn-dark" type="button">Fill a correct Form</button>
+    </div>
+
+  </form>
+
+  <debug-form [form]="form" class="m-2"></debug-form>
+  <!--  <debug-input-field [group]="form" prop="name"></debug-input-field>-->
+
+
+</div>

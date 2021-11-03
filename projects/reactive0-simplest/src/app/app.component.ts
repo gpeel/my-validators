@@ -4,7 +4,7 @@ import {Component} from '@angular/core';
   selector: 'app-root',
   template: `
 
-    <user-reactive-form-1></user-reactive-form-1>
+    <reactive-simplest></reactive-simplest>
 
   `
 })
