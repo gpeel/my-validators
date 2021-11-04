@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -10,34 +11,30 @@ import {
 import {AbstractControl} from '@angular/forms';
 import {Plog} from '@gpeel/plog';
 import {Subscription} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
 
-/* tslint:disable:component-selector */
 /**
  * Use:
- * I removed the SIMPLISTIC use which was not advisable, because it did not refresh for 'blur' events when using OnPush.
- * <my-error-msg [control]="form.get('prenom')"></my-error-msg>
- *
- * It is now REQUIRED to use the directve myErrorMsg directly on the <input> like
+ * It is REQUIRED to use the directve myErrorMsg directly on the <input> like
  *
  * <input myErrorMsg='theNameOfTheField'>
  *
- * And OPTIONNALY define in HTML where the validation error messages would go
+ * And OPTIONNALY define in HTML another component where the validation error messages would go
  * <my-error-msg #theNameOfTheField="myErrorMsg" ></my-error-msg>
- *
- * => With that strategy a blur will always show the validation errors even when using OnPush.
- * And then you place where you want the location of the errors on the UI with:
- *  <my-error-msg #theNameOfTheField="myErrorMsg" ></my-error-msg>
- * If you don't write the <my-error-msg> explicitly, the component is dynamically created
- * under the <input>.
- *
  * #refVar="myErrorMsg" creates a template-var-reference to the <my-error-msg> component.
  * And then this ref is given to the directive myErrorMsg with [myErrorMsg]="refVar"
+ *
+ * If the component  <my-error-msg> is not created, the directive myErrorMsg will create it automatically
+ * under the <input>
+ *
+ * => The directive myErrorMsg will listen to the blur event and transform it
+ * into a valueChanges event so show the validation errors even when using OnPush.
  *
  * Note:
  *  the formControl SHOULD NOT change overtime, since it is RESOLVED at OnInit()
  *  Hereafter the control will NOT evolve if you change your form.
- *  for example it won't work if you rebuild new formCOntrols with the FormBuilder.
+ *  for example it won't work if you rebuild new formControls with the FormBuilder.
  */
 @Component({
   selector: 'my-error-msg',
@@ -67,16 +64,24 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
 
   @Input() myErrorExtraMsg: ErrorMsgMap = {};
   control!: AbstractControl;
-
   errors = false;
   subscription!: Subscription;
   customClassObject: any;
   mymsgs: string[] = [];
   id = ''; // id of corresponding <input id=xx> if defined
   counter: number = 1;
+  adebounce: number = 300;
 
   constructor(private cd: ChangeDetectorRef) {
     Plog.validationErrorMsgCreation('<pee-error-msg>');
+  }
+
+  @Input() set debounce(value: any) {
+    if (typeof value === 'string') {
+      this.adebounce = +value;
+    } else if (typeof value === 'number') {
+      this.adebounce = value;
+    }
   }
 
   @Input() set myErrorClass(className: string) {
@@ -92,23 +97,24 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
 
   /**
    * With ngMaterial INPUT, the blur does NOT generate a valueChanges ...
-   * So an error computed at startup but not shown because dirty==false, touched==false at that time.
-   * Will NOT be shown when touched turns true, because I need an explicit  this.cd.markForCheck();
-   * for that.
+   * So for example an error computed at startup is not shown because dirty==false, touched==false at that time.
+   * ok so far.
+   * This error Will NOT be shown when touched turns true, because I need an explicit  this.cd.markForCheck();
+   * for this OnPush MyErrorMessageComponent.
    * 4 Options:
    *    -1 inspect control.touched on each CD with DoCheck,
    *      and kick off a compute and markForCheck when turning true
    *    -2 OR NOT be OnPush, and let the HTML refresh with a *ngIf on the touched/dirty flag
    *    We can pre-compute the errors-msgs before so we don't have to do it again.
-   *    This works only if the <my-error-msg> is not in OnPush component ...
-   *    -3 OR use a specific CVA like peeControlOptions, which generates always a valueChanges ALSO when a blur is made.
-   *    So if peeControlOptions CVA is added on each onput it will work.
+   *    This works only if the <my-error-msg> is not in OnPush wrapping component around ...
+   *    -3 OR use a specific CVA, which generates always a valueChanges ALSO when a blur is made.
+   *    So if a CVA like taht is added on each onput it will work.
    *    ErrorMessageComponent could OnPush and refresh only on valueChanges() + cd.markForCheck()
-   *    -4 OR NEW SOLUTION : *** probably the BEST *** and this is ths Strategy used in this toolkit.
-   *    always use the myErrorMsg DIRECTIVE (same tek solution as peeCOntrolOptions as in the CVA solution 3)
-   *    which then could add a blur listener to emit
-   *    a valueChanges event. and CONNECT to this component
-   *    <my-error-msg>. This solution is described in the comment above this class
+   *    -4 OR NEW SOLUTION : *** probably the BEST *** and this is the Strategy used in this toolkit.
+   *    Make the use of myErrorMsg DIRECTIVE (which follow solution 3 above) required to have validation errors.
+   *    Then myErrorMsg will add a blur listener to emit a valueChanges event when thers is a blur.
+   *    The myErrorMsg directive will CONNECT to this component MyErrorMessageComponent or create it dynamically.
+   *    This solution is described in the comment above this class
    */
 
 
@@ -122,10 +128,12 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
 
   ngAfterViewInit(): void {
     this.compute(); // for startup, so that this.msgs is filled
-    this.subscription = this.control.valueChanges.subscribe(() => {
-      this.compute();
-      this.cd.markForCheck();
-    });
+    this.subscription = this.control.valueChanges
+      .pipe(debounceTime(this.adebounce))
+      .subscribe(() => {
+        this.compute();
+        this.cd.markForCheck();
+      });
   }
 
   compute() {

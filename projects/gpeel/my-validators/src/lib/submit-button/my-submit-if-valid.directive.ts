@@ -26,7 +26,7 @@ import {SubmitIfAbstractDirective} from './submit-if-abstract.directive';
 })
 export class MySubmitIfValidDirective extends SubmitIfAbstractDirective {
 
-  @Output('mySubmitIfValid') valid = new EventEmitter<void>(); // tslint:disable-line:no-output-rename
+  @Output('mySubmitIfValid') valid = new EventEmitter<void>();
 
   constructor(injector: Injector,
               @Optional() @Inject(MY_ALERT_SERVICE_API) private alertService: MyAlertServiceInterface) {

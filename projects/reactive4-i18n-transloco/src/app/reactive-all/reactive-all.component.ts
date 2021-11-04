@@ -2,8 +2,26 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {ErrorMsgMap, makeDirty} from '@gpeel/my-validators';
 import {Plog} from '@gpeel/plog';
+import {TranslocoService} from '@ngneat/transloco';
 import {TypicalValidatorsService} from '../validators/typical-validators.service';
 import {InterfaceStyleEnum, SubscriptionOptions, UserData} from './user-data';
+
+const FR_extraMessagesOverride: ErrorMsgMap = {
+  required: 'Override: vous devez choisir !',
+  minlength: ({
+                actualLength,
+                requiredLength
+              }) => `Override: longueur nécessaire ${requiredLength}!`
+};
+
+const EN_extraMessagesOverride: ErrorMsgMap = {
+  required: 'Override: You must choose something !',
+  minlength: ({
+                actualLength,
+                requiredLength
+              }) => `Override: required length ${requiredLength}!`
+};
+
 
 @Component({
   selector: 'reactive-all',
@@ -23,20 +41,26 @@ export class ReactiveAllComponent implements OnInit {
     notes: undefined,
     uneditedField: 'whatwhat'
   };
-
-  extraMessagesOverride: ErrorMsgMap = {
-    required: 'Override You must choose something !',
-    minlength: ({
-                  actualLength,
-                  requiredLength
-                }) => `Override : Actual length is ${actualLength} and we need ${requiredLength}!`
-  };
+  activeLang!: string;
+  extraMessagesOverride!: ErrorMsgMap;
 
   form!: FormGroup; // ! is used to get rid of STRICT null check for that variable, it is better than // @ts-ignore
   InterfaceStyleEnum = InterfaceStyleEnum;
 
   constructor(private fb: FormBuilder,
+              public translocoService: TranslocoService,
               private validatorsService: TypicalValidatorsService) {
+    translocoService.langChanges$.subscribe(l => {
+      Plog.red('Language change', l);
+      this.activeLang = l;
+      if (l === 'fr') {
+        Plog.red('Language change FR', l);
+        this.extraMessagesOverride = FR_extraMessagesOverride;
+      } else if (l === 'en') {
+        Plog.red('Language change EN', l);
+        this.extraMessagesOverride = EN_extraMessagesOverride;
+      }
+    });
   }
 
   ngOnInit() {

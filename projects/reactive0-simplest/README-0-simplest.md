@@ -1,4 +1,10 @@
-# Using my-validators : simplest
+# Using my-validators
+
+Code examples and library on Gihub at: https://github.com/gpeel/my-validators
+
+npm at: https://www.npmjs.com/package/@gpeel/my-validators
+
+## my validators npm install
 
         npm i @gpeel/my-validators
 
@@ -8,7 +14,8 @@ To have all included validator messages as :
 
 ![](val-name.png)
 
-Validation error messages appear when the field is blurred or dirty.
+Validation error messages appear when the field is blurred or dirty. Thers is default debounce of 300ms (optionnaly
+changeable)
 
 ## Setup
 
@@ -30,13 +37,15 @@ export class AppModule {
 }
 ````
 
-## IN you app code
+## In you app code
 
 Replace Angular Validators by MyValidators ie replace:
 // import {Validators} from '@angular/forms';
 
 with:
-// import {MyValidators} from '@gpeel/my-validators'; BEFORE :
+// import {MyValidators} from '@gpeel/my-validators';
+
+BEFORE :
 
 ````typescript
 
@@ -66,7 +75,7 @@ this.form = this.fb.group({
 });
 ````
 
-Just add myErrorMsg in the \<input>
+And then add myErrorMsg in the \<input>
 
 ````html
 
@@ -80,11 +89,9 @@ The myErrorMsg Directive will create a component under \<input> to show validati
 
 ## Strategy Validators / Error-Message
 
-This is a 2-steps process
+This is a 2-steps process:
 
-1- the MyValidators should compute a "msg" property when invoked ny Angular. Here the example is using MyValidators from
-from '@gpeel/my-validators' where the standard validator method have been added a 'msg' into the return. it is the
-simplest way of doing it, the message is hard-coded in english.
+1- the MyValidators will compute a "msg" property added to the control.error when invoked by Angular.
 
 Example for 2 validation errors with minLength and pattern validators:
 
@@ -93,23 +100,28 @@ name.errors = {
   "minlength": {
     "requiredLength": 3,
     "actualLength": 2,
-    "msg": "the length should be more than 3 characters"
+    "msg": "the length should be more than 3 characters"  // <<<< added by MyValidators
   },
   "pattern": {
     "requiredPattern": "/titi/",
     "actualValue": "Th",
-    "msg": "the field should respect the pattern /titi/ "
+    "msg": "the field should respect the pattern /titi/ "  // <<<< added by MyValidators
   }
 }
 ````
 
-2- then the ui component <my-error-msg> extract control.errors.<validators-name>.msg for each <validator-name> key
-present in control.errors and show it HTML.
+2- then the ui component <my-error-msg> extract control.errors.<validators-key>.msg for each <validator-key> key present
+in control.errors and show it HTML.
 
-Since those 2 steps are completely disctinc, you can elaborate your error.msg as you want (inside an Angular service,
-connected to a i18n framewotk to get translation ..etc).
+Since those 2 steps are completely disctinct, you can code validators that elaborate this "msg" property as you want (
+inside an Angular service, connected to a i18n framewotk to get translation ..etc).
 
-See more realistic and flexible examples : reactive-flexible and reactive-i18n-transloco
+See more realistic and flexible examples on github :
+
+- reactive3-flexible-validators: this example provide a ValidatorService and a MessageService where you define the value
+  of each validator error key.
+- reactive4-i18n-transloco: extending from the reactive3-flexible-validators example and connecting the MessageService
+  to a translator tool @ngneat/transloco in this case.
 
 ## Plog install in your main project (OPTIONNAL)
 
@@ -146,8 +158,14 @@ export const environment = {
 
 And your developpment environment.ts would typically activate much more loggers (here all are activated) :
 
-You have specifi loggers to have feedback when the @component \<my-error-msg> recomputes its error messages and what is
-the value of control.errors for that \<input>. See below.
+You have specific loggers to have feedback when the @component \<my-error-msg> recomputes its error messages and what is
+the value of control.errors for that \<input>.
+
+- @REFRESH tells you each time the component is refreshed by Angular (on this picture, it is the 8th time the component
+  has been refreshed)
+- @VALID gives the error messages that will be shown
+
+See below.
 
 ![](val-loggers-validation.png)
 

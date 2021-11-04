@@ -4,9 +4,11 @@ import {
   Directive,
   ElementRef,
   Input,
+  OnChanges,
   OnInit,
   Optional,
   Self,
+  SimpleChanges,
   ViewContainerRef
 } from '@angular/core';
 import {ControlContainer, NgControl} from '@angular/forms';
@@ -34,23 +36,36 @@ import {MyErrorMessageComponent} from './my-error-message.component';
 @Directive({
   selector: '[myErrorMsg]'
 })
-export class MyErrorDirective implements OnInit, AfterViewInit {
+export class MyErrorDirective implements OnInit, AfterViewInit, OnChanges {
+  // undefined for [myErrorMsg]
+  @Input('myErrorMsg') component: MyErrorMessageComponent | undefined | '';
 
   // when using this directive without params the value set by Angular will be
   // '' for myErrorMsg
-  // undefined for [myErrorMsg]
-  @Input('myErrorMsg') component: MyErrorMessageComponent | undefined | '';
   @Input() myErrorClass: string | undefined;
   @Input() myErrorExtraMsg: ErrorMsgMap | undefined;
   @Input() id: string = '';
-
-  // component: MyErrorMessageComponent;
 
   constructor(private vcr: ViewContainerRef,
               private resolver: ComponentFactoryResolver,
               @Optional() @Self() private ngControlSelf: NgControl,
               @Optional() @Self() private controlContainerSelf: ControlContainer,
               private host: ElementRef) {
+  }
+
+  // component: MyErrorMessageComponent;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.myErrorExtraMsg) {
+      if (this.component && this.myErrorExtraMsg) {
+        this.component.myErrorExtraMsg = this.myErrorExtraMsg;
+      }
+    }
+    if (changes.myErrorClass) {
+      if (this.component && this.myErrorClass) {
+        this.component.myErrorClass = this.myErrorClass;
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -76,7 +91,7 @@ export class MyErrorDirective implements OnInit, AfterViewInit {
       this.component.id = this.id;
     }
     // correcting the blur event defective-NG-strategy
-    fromEvent(this.host.nativeElement, 'focusout')
+    fromEvent(this.host.nativeElement, 'focusout') // focusout same as blur
       .subscribe((e) => {
         if (this.component) {
           this.component.control.updateValueAndValidity();

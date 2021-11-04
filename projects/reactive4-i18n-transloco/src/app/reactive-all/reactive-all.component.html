@@ -24,8 +24,8 @@
       <div *ngFor="let interfaceStyle of InterfaceStyleEnum | keyvalue" class="form-check">
         <input [myErrorMsg]="interfaceStyleError" [value]="interfaceStyle.value"
                class="form-check-input" formControlName="interfaceStyle"
-               id="interfaceStyle" type="radio">
-        <label class="form-check-label notbold" for="interfaceStyle">
+               id="{{interfaceStyle.value}}" type="radio">
+        <label class="form-check-label notbold" for="{{interfaceStyle.value}}">
           {{interfaceStyle.value}}
         </label>
       </div>

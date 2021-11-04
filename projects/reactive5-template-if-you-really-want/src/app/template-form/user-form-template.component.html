@@ -34,34 +34,14 @@
 
     <div class="form-group mt-3">
       <label class="no-margin-bottom">User Interface Style Radio</label>
-      <div class="form-check">
-        <!--for radio, you just need to place ONCE the directive myErrorMsg on one of the radio inputs-->
-        <input [(ngModel)]="editedUser.interfaceStyle" [myErrorExtraMsg]="extraMessages"
-               [myErrorMsg]="interfaceStyleError"
-               [value]="InterfaceStyleEnum.Light"
+
+      <div *ngFor="let interfaceStyle of InterfaceStyleEnum | keyvalue" class="form-check">
+        <input [(ngModel)]="editedUser.interfaceStyle" [myErrorMsg]="interfaceStyleError"
+               [value]="interfaceStyle.value"
                class="form-check-input"
-               id="lightInterface"
-               myRequired
-               name="interfaceStyle" type="radio">
-        <label class="form-check-label" for="lightInterface">
-          Light
-        </label>
-      </div>
-      <div class="form-check">
-        <input [(ngModel)]="editedUser.interfaceStyle" [value]="InterfaceStyleEnum.Medium" class="form-check-input"
-               id="mediumInterface"
-               name="interfaceStyle" type="radio">
-        <label class="form-check-label" for="mediumInterface">
-          Medium
-        </label>
-      </div>
-      <div class="form-check">
-        <input [(ngModel)]="editedUser.interfaceStyle" [value]="InterfaceStyleEnum.Dark"
-               class="form-check-input"
-               id="darkInterface"
-               name="interfaceStyle" type="radio">
-        <label class="form-check-label" for="darkInterface">
-          Dark
+               id="{{interfaceStyle.value}}" type="radio">
+        <label class="form-check-label notbold" for="{{interfaceStyle.value}}">
+          {{interfaceStyle.value}}
         </label>
       </div>
       <my-error-msg #interfaceStyleError="myErrorMsg"></my-error-msg>
