@@ -41,7 +41,6 @@ export class ReactiveAllComponent implements OnInit {
     notes: undefined,
     uneditedField: 'whatwhat'
   };
-  activeLang!: string;
   extraMessagesOverride!: ErrorMsgMap;
 
   form!: FormGroup; // ! is used to get rid of STRICT null check for that variable, it is better than // @ts-ignore
@@ -50,17 +49,7 @@ export class ReactiveAllComponent implements OnInit {
   constructor(private fb: FormBuilder,
               public translocoService: TranslocoService,
               private validatorsService: TypicalValidatorsService) {
-    translocoService.langChanges$.subscribe(l => {
-      Plog.red('Language change', l);
-      this.activeLang = l;
-      if (l === 'fr') {
-        Plog.red('Language change FR', l);
-        this.extraMessagesOverride = FR_extraMessagesOverride;
-      } else if (l === 'en') {
-        Plog.red('Language change EN', l);
-        this.extraMessagesOverride = EN_extraMessagesOverride;
-      }
-    });
+
   }
 
   ngOnInit() {
@@ -103,6 +92,19 @@ export class ReactiveAllComponent implements OnInit {
     this.form.statusChanges.subscribe(d => Plog.colorGreen('form.statusChanges', d));
     this.form.get('name')!.valueChanges.subscribe(d => Plog.colorGreen('name.valueChanges', d));
     this.form.get('name')!.statusChanges.subscribe(d => Plog.colorGreen('name.statusChanges', d));
+
+    this.translocoService.langChanges$.subscribe(l => {
+      Plog.red('Language change', l);
+      if (l === 'fr') {
+        Plog.red('Language change FR', l);
+        this.extraMessagesOverride = FR_extraMessagesOverride;
+      } else if (l === 'en') {
+        Plog.red('Language change EN', l);
+        this.extraMessagesOverride = EN_extraMessagesOverride;
+      }
+      this.form.setValue(this.form.value);
+      this.form.updateValueAndValidity();
+    });
 
   }
 
