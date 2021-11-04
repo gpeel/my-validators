@@ -1,0 +1,85 @@
+<div class="container">
+  <h2>User Data Settings</h2>
+  <ng-content></ng-content>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off" spellcheck="false">
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input class="form-control" formControlName="name" id="name" myErrorMsg>
+    </div>
+
+    <div class="form-check form-group mt-3 mb-3">
+      <input [myErrorExtraMsg]="extraMessagesOverride" [myErrorMsg]="emailOffersError"
+             class="form-check-input"
+             formControlName="emailOffers"
+             id="emailOffers"
+             type="checkbox">
+      <label class="form-check-label" for="emailOffers"> Email Special Offers </label>
+      <my-error-msg #emailOffersError="myErrorMsg" myErrorClass="my-error-CUSTOM"></my-error-msg>
+    </div>
+
+    <div class="form-group">
+      <label class="no-margin-bottom">User Interface Style Radio</label>
+      <div *ngFor="let interfaceStyle of InterfaceStyleEnum | keyvalue" class="form-check">
+        <input [myErrorMsg]="interfaceStyleError" [value]="interfaceStyle.value"
+               class="form-check-input" formControlName="interfaceStyle"
+               id="interfaceStyle" type="radio">
+        <label class="form-check-label notbold" for="interfaceStyle">
+          {{interfaceStyle.value}}
+        </label>
+      </div>
+      <my-error-msg #interfaceStyleError="myErrorMsg"></my-error-msg>
+    </div>
+
+    <debug-input-field [group]="form" prop="subscriptionType"></debug-input-field>
+
+    <div class="form-group">
+      <label for="subscriptionType">Subscription Type (*)</label>
+      <select class="form-control"
+              formControlName="subscriptionTypeComboCva"
+              id="subscriptionType" myErrorMsg>
+        <option>Monthly</option>
+        <option>Annual</option>
+        <option>Lifetime</option>
+      </select>
+    </div>
+
+
+    <debug-input-field [group]="form" prop="subscriptionTypeComboCva"></debug-input-field>
+
+    <div class="form-group">
+      <label for="subscriptionTypeCVA">Subscription Type by CVA(*)</label>
+      <cva-combo [options]="subscriptionsTypeOptions" formControlName="subscriptionTypeComboCva"
+                 id="subscriptionTypeCVA"></cva-combo>
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Notes</label>
+      <textarea class="form-control" formControlName="notes"
+                id="notes"
+                myErrorMsg
+                rows="3"></textarea>
+    </div>
+
+    <div class="mt-5">
+      <button class="btn btn-primary">Send</button>
+      <!--      mySubmitIfValidAndDirty stopPropagation and preventDefault for the button -->
+      <!--      so ne need to define the type="button" to prevent submitting the form-->
+      <button (mySubmitIfValidAndDirty)="onSend()" class="btn btn-primary">Send with dirtyfication</button>
+    </div>
+    <!--    for those 2 buttons : you HAVE to add type="button" to prevent the (submit) event to be emitted -->
+    <!--    otherwise you will get onSubmit() method executed as well-->
+    <div>
+      <button (click)="onCancel()" class="btn btn-danger" type="button">Cancel (returns Form to original values)
+      </button>
+      <button (click)="onFillaCorrectForm()" class="btn btn-dark" type="button">Fill a correct Form</button>
+    </div>
+
+  </form>
+
+  <debug-form [form]="form" class="m-2"></debug-form>
+  <debug-input-field [group]="form" prop="name"></debug-input-field>
+
+
+</div>
