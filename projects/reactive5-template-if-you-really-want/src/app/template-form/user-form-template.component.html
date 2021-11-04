@@ -1,0 +1,113 @@
+<div class="container">
+  <h2>User Settings</h2>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit()" autocomplete="off" spellcheck="false">
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <!--      <input  myErrorMsg [myErrorExtraMsg]="extraMessages" >-->
+      <input #name='ngModel' [(ngModel)]="editedUser.name" class="form-control"
+             id="name"
+             myErrorMsg
+             myMinlength="3"
+             myRequired
+             name="name">
+    </div>
+    <!--blur DOES NOT work with direct use of  my-error-msg  component -->
+    <!-- and I don't intent to make it works-->
+    <!--    <my-error-msg [control]="form.get('name')"></my-error-msg>-->
+    <debug-input-field [group]="form" prop="name"></debug-input-field>
+
+
+    <div class="form-check form-group">
+      <input #emailOffers='ngModel' [(ngModel)]="editedUser.emailOffers"
+             [myErrorMsg]="errorEmailsError"
+             class="form-check-input"
+             id="emailOffers"
+             myErrorClass="my-error-CUSTOM"
+             myRequired
+             name="emailOffers"
+             type="checkbox">
+      <label class="form-check-label" for="emailOffers"> Email Special Offers </label>
+      <my-error-msg #errorEmailsError="myErrorMsg"></my-error-msg>
+    </div>
+
+    <div class="form-group mt-3">
+      <label class="no-margin-bottom">User Interface Style Radio</label>
+      <div class="form-check">
+        <!--for radio, you just need to place ONCE the directive myErrorMsg on one of the radio inputs-->
+        <input [(ngModel)]="editedUser.interfaceStyle" [myErrorExtraMsg]="extraMessages"
+               [myErrorMsg]="interfaceStyleError"
+               [value]="InterfaceStyleEnum.Light"
+               class="form-check-input"
+               id="lightInterface"
+               myRequired
+               name="interfaceStyle" type="radio">
+        <label class="form-check-label" for="lightInterface">
+          Light
+        </label>
+      </div>
+      <div class="form-check">
+        <input [(ngModel)]="editedUser.interfaceStyle" [value]="InterfaceStyleEnum.Medium" class="form-check-input"
+               id="mediumInterface"
+               name="interfaceStyle" type="radio">
+        <label class="form-check-label" for="mediumInterface">
+          Medium
+        </label>
+      </div>
+      <div class="form-check">
+        <input [(ngModel)]="editedUser.interfaceStyle" [value]="InterfaceStyleEnum.Dark"
+               class="form-check-input"
+               id="darkInterface"
+               name="interfaceStyle" type="radio">
+        <label class="form-check-label" for="darkInterface">
+          Dark
+        </label>
+      </div>
+      <my-error-msg #interfaceStyleError="myErrorMsg"></my-error-msg>
+    </div>
+
+    <!--    Don't use the <debug-input-field> here, it is not created yet !-->
+    <!--    wait the end of the <form></form>-->
+    <!--    <debug-input-field [group]="form" prop="subscriptionType"></debug-input-field>-->
+
+    <div class="form-group mt-3">
+      <label for="subscriptionType">Subscription Type (*)</label>
+      <select [(ngModel)]="editedUser.subscriptionType"
+              class="form-control"
+              id="subscriptionType"
+              myErrorMsg
+              myRequired
+              name="subscriptionType">
+        <option>Monthly</option>
+        <option>Annual</option>
+        <option>Lifetime</option>
+      </select>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="notes">Notes</label>
+      <textarea [(ngModel)]="editedUser.notes" class="form-control"
+                id="notes"
+                myErrorMsg
+                myRequired
+                name="notes"
+                rows="3"></textarea>
+    </div>
+
+    <div class="mt-3">
+      <button class="btn btn-primary">Send</button>
+      <button (mySubmitIfValidAndDirty)="onSend()" class="btn btn-primary">Send with dirtyfication</button>
+    </div>
+    <div>
+      <button (click)="onCancel()" class="btn btn-danger" type="button">Cancel (returns Form to original values)
+      </button>
+      <button (click)="onFillaCorrectForm()" class="btn btn-dark" type="button">Fill a correct Form</button>
+    </div>
+
+  </form>
+
+  <debug-form [form]="form" class="m-3"></debug-form>
+
+
+</div>

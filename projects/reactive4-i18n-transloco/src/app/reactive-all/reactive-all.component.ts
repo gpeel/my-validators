@@ -15,7 +15,7 @@ export class ReactiveAllComponent implements OnInit {
   subscriptionsTypeOptions: SubscriptionOptions[] = ['Lifetime', 'Annual', 'Monthly'];
   originalUserData: UserData = {
     id: 5,
-    name: undefined,
+    name: 'Tom',
     emailOffers: true,
     interfaceStyle: undefined,
     subscriptionType: undefined,

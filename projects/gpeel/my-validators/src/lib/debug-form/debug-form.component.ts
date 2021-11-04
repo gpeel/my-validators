@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, NgForm} from '@angular/forms';
 
 /**
  * Use:
@@ -30,5 +30,5 @@ FORM.value {{form.value | json}}
 })
 export class DebugFormComponent {
 
-  @Input() form!: AbstractControl;
+  @Input() form!: AbstractControl | NgForm;
 }

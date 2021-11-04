@@ -1,0 +1,9 @@
+
+.ng-invalid.ng-dirty, .ng-invalid.ng-touched {
+    border-color: red;
+}
+
+
+label.no-margin-bottom {
+    margin-bottom: 0;
+}

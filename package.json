@@ -9,6 +9,7 @@
     "start:2": "ng serve -o reactive2-example-with-all-input-types",
     "start:3": "ng serve -o reactive3-flexible-validators",
     "start:4": "ng serve -o reactive4-i18n-transloco",
+    "start:5": "ng serve -o reactive5-template-if-you-really-want",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
