@@ -11,7 +11,7 @@ import {MY_MESSAGES_SERVICE_API, MyMessagesServiceInterface, MyValidatorsService
 @Injectable()
 export class TypicalStandaloneValidatorsService implements MyValidatorsServiceInterface {
 
-  // constructor(private  myMessagesService: TypicalMessagesService) {
+  // constructor(private  myMessagesService: I18nMessagesService) {
   constructor(@Inject(MY_MESSAGES_SERVICE_API) private myMessagesService: MyMessagesServiceInterface) {
   }
 

@@ -30,7 +30,7 @@ import {ControlValueAccessor, FormControl, NgControl} from '@angular/forms';
   `,
   styles: [
     `
-      .form-control.ng-invalid.ng-dirty {
+      .ng-invalid.ng-dirty, .ng-invalid.ng-touched {
         border-color: red;
       }
     `

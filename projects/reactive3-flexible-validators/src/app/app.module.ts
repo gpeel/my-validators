@@ -41,7 +41,7 @@ import {TypicalValidatorsService} from './validators/typical-validators.service'
       useClass: AlertWithSimpleLogService
     },
     // providing MY_MESSAGES_SERVICE_API enables the (mySubmitIfValidAndDirty) Directive
-    // to pop alert with message label you define in your MessageService (here TypicalMessagesService)
+    // to pop alert with message label you define in your MessageService (here I18nMessagesService)
     // when makin the form dirty for example
     {
       provide: MY_MESSAGES_SERVICE_API,

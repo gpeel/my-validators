@@ -46,3 +46,11 @@ And fr.json
 
 ````
 
+Also look at src/app/transloco for a TranslocoRootModule seting things up for the project.
+
+## Project impact to migrate to i18n
+
+There is very few things to wire up. From example reactive3-flexible-validators just connect our MessageService called
+TypicalMessageService to transloco.
+
+I change the name of the service so I18nMessageService.

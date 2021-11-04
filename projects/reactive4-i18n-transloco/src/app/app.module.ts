@@ -12,7 +12,7 @@ import {CvaComboComponent} from './reactive-all/cva-combo.component';
 import {ReactiveAllComponent} from './reactive-all/reactive-all.component';
 import {TranslocoRootModule} from './transloco/transloco-root.module';
 import {AlertWithSimpleLogService} from './validators/alert-with-simple-log.service';
-import {TypicalMessagesService} from './validators/typical-messages.service';
+import {I18nMessagesService} from './validators/i18n-messages.service';
 import {TypicalStandaloneValidatorsService} from './validators/typical-standalone-validators.service';
 import {TypicalValidatorsService} from './validators/typical-validators.service';
 
@@ -35,7 +35,7 @@ import {TypicalValidatorsService} from './validators/typical-validators.service'
     NgbModule,
   ],
   providers: [
-    TypicalMessagesService,
+    I18nMessagesService,
     TypicalValidatorsService,
     TypicalStandaloneValidatorsService,
     AlertWithSimpleLogService,
@@ -46,11 +46,11 @@ import {TypicalValidatorsService} from './validators/typical-validators.service'
       useClass: AlertWithSimpleLogService
     },
     // providing MY_MESSAGES_SERVICE_API enables the (mySubmitIfValidAndDirty) Directive
-    // to pop alert with message label you define in your MessageService (here TypicalMessagesService)
+    // to pop alert with message label you define in your MessageService (here I18nMessagesService)
     // when makin the form dirty for example
     {
       provide: MY_MESSAGES_SERVICE_API,
-      useClass: TypicalMessagesService,
+      useClass: I18nMessagesService,
     }
   ],
   bootstrap: [AppComponent]

@@ -1,0 +1,18 @@
+import {Injectable} from '@angular/core';
+import {ErrorMsgMap, MyMessagesServiceInterface} from '@gpeel/my-validators';
+import {TranslocoService} from '@ngneat/transloco';
+
+
+@Injectable()
+export class I18nMessagesService implements MyMessagesServiceInterface {
+
+  constructor(private translocoService: TranslocoService) {
+  }
+
+  getValidationMessageFor(key: string, errors: ErrorMsgMap = {}): string {
+    const msg = this.translocoService.translate(key, errors, 'validators');
+    console.log(msg);
+    return msg;
+  }
+
+}

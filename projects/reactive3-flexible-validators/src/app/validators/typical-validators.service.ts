@@ -26,7 +26,7 @@ export class TypicalValidatorsService extends DefaultValidatorsService implement
    * BUT injection with the Token also works fine also (line in comment, with a provider for the token MY_MESSAGES_SERVICE_API)
    */
   constructor(@Inject(MY_MESSAGES_SERVICE_API) private fullMessagesService: MyMessagesServiceInterface) {
-    // constructor(private  fullMessagesService: TypicalMessagesService) {
+    // constructor(private  fullMessagesService: I18nMessagesService) {
     super(fullMessagesService);
   }
 

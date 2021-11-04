@@ -1,11 +1,13 @@
 {
-  "forbiddenName": "TRANSLOCO! le mot {{forbiddenName}} est interdit",
-  "email": "TRANSLOCO! le champ doit être un email valid",
-  "required": "TRANSLOCO! le champ est requis",
-  "requiredTrue": "TRANSLOCO! le champ doit être true",
-  "max": "TRANSLOCO! le nombre doit être au moins {{max}}",
-  "min": "TRANSLOCO! le nombre doit être au plus {{min}}",
-  "minlength": "TRANSLOCO! le nombre de caractères doit être supérieur à {{requiredLength}}",
-  "maxlength": "TRANSLOCO! le nombre de caractères doit être inférieur à  {{requiredLength}}",
-  "pattern": "TRANSLOCO! le champ doit respecter le pattern {{requiredPattern}}"
+  "pristineForm": "Le formulaire est inchangé. Pas d'action executée !",
+  "invalidForm": "Vous devez corriger le formulaire pour qu'il soit soumis !",
+  "forbiddenName": "le mot {{forbiddenName}} est interdit",
+  "email": "le champ doit être un email valide",
+  "required": "le champ est requis",
+  "requiredTrue": "le champ doit être coché",
+  "max": "le nombre doit être au moins {{max}}",
+  "min": "le nombre doit être au plus {{min}}",
+  "minlength": "le nombre de caractères doit être supérieur à {{requiredLength}}",
+  "maxlength": "le nombre de caractères doit être inférieur à  {{requiredLength}}",
+  "pattern": "le champ doit respecter le pattern {{requiredPattern}}"
 }
