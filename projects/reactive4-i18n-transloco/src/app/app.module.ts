@@ -9,6 +9,7 @@ import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {CvaComboComponent} from './reactive-all/cva-combo.component';
 import {ReactiveAllComponent} from './reactive-all/reactive-all.component';
+import {TranslocoRootModule} from './transloco/transloco-root.module';
 import {AlertWithSimpleLogService} from './validators/alert-with-simple-log.service';
 import {TypicalMessagesService} from './validators/typical-messages.service';
 import {TypicalStandaloneValidatorsService} from './validators/typical-standalone-validators.service';
@@ -24,6 +25,8 @@ import {TypicalValidatorsService} from './validators/typical-validators.service'
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
+    // i18n
+    TranslocoRootModule,
     //
     MyValidatorsModule,
     PlogModule.forRoot(environment),
