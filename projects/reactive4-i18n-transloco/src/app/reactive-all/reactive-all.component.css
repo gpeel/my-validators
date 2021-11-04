@@ -1,8 +1,0 @@
-
-.ng-invalid.ng-dirty, .ng-invalid.ng-touched {
-    border-color: red;
-}
-
-label:not([class*="notbold"]) {
-    font-weight: bold;
-}

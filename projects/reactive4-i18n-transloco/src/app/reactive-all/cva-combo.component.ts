@@ -30,9 +30,18 @@ import {ControlValueAccessor, FormControl, NgControl} from '@angular/forms';
   `,
   styles: [
     `
-      .form-control.ng-invalid.ng-dirty {
-        border-color: red;
+      //.ng-invalid.ng-dirty, .ng-invalid.ng-touched {
+      //  border-color: red;
+      //}
+
+      // I HAVE to redeclare here the style because style are NOT inherited
+      // from their father component in the DOM
+      @import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+      .ng-invalid.ng-dirty, .ng-invalid.ng-touched {
+        @extend .is-invalid;
       }
+
     `
   ],
   // I don't have to declare this CVA as a potential injectable CVA,

@@ -8,7 +8,7 @@ import {InterfaceStyleEnum, SubscriptionOptions, UserData} from './user-data';
 @Component({
   selector: 'reactive-all',
   templateUrl: 'reactive-all.component.html',
-  styleUrls: ['reactive-all.component.css']
+  styleUrls: ['reactive-all.component.scss']
 })
 export class ReactiveAllComponent implements OnInit {
 

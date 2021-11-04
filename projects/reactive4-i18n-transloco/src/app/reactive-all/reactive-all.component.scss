@@ -1,0 +1,13 @@
+//.ng-invalid.ng-dirty, .ng-invalid.ng-touched {
+//    border-color: red;
+//}
+
+@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.ng-invalid.ng-dirty, .ng-invalid.ng-touched {
+  @extend .is-invalid;
+}
+
+label:not([class*="notbold"]) {
+  font-weight: bold;
+}
