@@ -4,7 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
+    "start:0": "ng serve -o reactive0-simplest",
+    "start:1": "ng serve -o reactive1-flexible-ui",
+    "start:2": "ng serve -o reactive2-example-with-all-input-types",
     "start:3": "ng serve -o reactive3-flexible-validators",
+    "start:4": "ng serve -o reactive4-i18n-transloco",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

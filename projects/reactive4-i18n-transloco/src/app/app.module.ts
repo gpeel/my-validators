@@ -1,3 +1,4 @@
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
@@ -26,6 +27,7 @@ import {TypicalValidatorsService} from './validators/typical-validators.service'
     ReactiveFormsModule,
     BrowserModule,
     // i18n
+    HttpClientModule,
     TranslocoRootModule,
     //
     MyValidatorsModule,
