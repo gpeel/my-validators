@@ -11,7 +11,6 @@ import {
 import {AbstractControl} from '@angular/forms';
 import {Plog} from '@gpeel/plog';
 import {Subscription} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
 import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
 
 /**
@@ -70,18 +69,13 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
   mymsgs: string[] = [];
   id = ''; // id of corresponding <input id=xx> if defined
   counter: number = 1;
-  adebounce: number = 300;
+  // adebounce: number = 0; // debouncing is NOT very interesting, because there is still a full changeDetection cycle
+  // it is just that the error are not shown, but there is no gain of perf (because there IS a CD).
+  // MUCH better option to prevent multiple CDs, you need to change the ControlValueAccessor for the input and add a debounce
+  // when the incoming DOM value changes. Quite simple, and can be made independant of the validators
 
   constructor(private cd: ChangeDetectorRef) {
     Plog.validationErrorMsgCreation('<pee-error-msg>');
-  }
-
-  @Input() set debounce(value: any) {
-    if (typeof value === 'string') {
-      this.adebounce = +value;
-    } else if (typeof value === 'number') {
-      this.adebounce = value;
-    }
   }
 
   @Input() set myErrorClass(className: string) {
@@ -129,7 +123,6 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
   ngAfterViewInit(): void {
     this.compute(); // for startup, so that this.msgs is filled
     this.subscription = this.control.valueChanges
-      .pipe(debounceTime(this.adebounce))
       .subscribe(() => {
         this.compute();
         this.cd.markForCheck();

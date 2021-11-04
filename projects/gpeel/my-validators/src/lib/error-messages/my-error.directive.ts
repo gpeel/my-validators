@@ -77,6 +77,7 @@ export class MyErrorDirective implements OnInit, AfterViewInit, OnChanges {
       const factory = this.resolver.resolveComponentFactory(MyErrorMessageComponent);
       this.component = this.vcr.createComponent(factory).instance;
     }
+
     if (self.control) {
       this.component.control = self.control;
     }
@@ -90,6 +91,7 @@ export class MyErrorDirective implements OnInit, AfterViewInit, OnChanges {
     if (this.id) {
       this.component.id = this.id;
     }
+
     // correcting the blur event defective-NG-strategy
     fromEvent(this.host.nativeElement, 'focusout') // focusout same as blur
       .subscribe((e) => {
