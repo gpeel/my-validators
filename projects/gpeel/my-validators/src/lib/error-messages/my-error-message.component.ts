@@ -32,7 +32,7 @@ import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
  *
  * Note:
  *  the formControl SHOULD NOT change overtime, since it is RESOLVED at OnInit()
- *  Hereafter the control will NOT evolve if you change your form.
+ *  Hereafter the control will NOT evolve if you change your form dynamically.
  *  for example it won't work if you rebuild new formControls with the FormBuilder.
  */
 @Component({
@@ -101,12 +101,14 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
    *    -2 OR NOT be OnPush, and let the HTML refresh with a *ngIf on the touched/dirty flag
    *    We can pre-compute the errors-msgs before so we don't have to do it again.
    *    This works only if the <my-error-msg> is not in OnPush wrapping component around ...
-   *    -3 OR use a specific CVA, which generates always a valueChanges ALSO when a blur is made.
-   *    So if a CVA like taht is added on each onput it will work.
-   *    ErrorMessageComponent could OnPush and refresh only on valueChanges() + cd.markForCheck()
+   *    -3 OR use a specific CVA (ControlValueAccessor), which generates always a valueChanges when a blur is made.
+   *    So if a CVA like that is added on each input it will work. The problem with transforming myErrorMsg
+   *    into a CVA is that you can't add other CVA afterward. NG only takes one custom CVA per <element>.
+   *    But with such a CVA ErrorMessageComponent could be OnPush and refresh only on valueChanges() + cd.markForCheck()
    *    -4 OR NEW SOLUTION : *** probably the BEST *** and this is the Strategy used in this toolkit.
-   *    Make the use of myErrorMsg DIRECTIVE (which follow solution 3 above) required to have validation errors.
-   *    Then myErrorMsg will add a blur listener to emit a valueChanges event when thers is a blur.
+   *    Don't use a CVA but just add an event handler on the <input> to catch (blur) or (focusout) and generate a valueChanges.
+   *    Make the use of myErrorMsg DIRECTIVE the required strategy to have validation errors.
+   *    So myErrorMsg will add a blur listener to emit a valueChanges event when there is a blur.
    *    The myErrorMsg directive will CONNECT to this component MyErrorMessageComponent or create it dynamically.
    *    This solution is described in the comment above this class
    */
