@@ -7,9 +7,9 @@
 
     <div class="form-group">
       <label for="name">Name</label>
-      <!--      <input [peeControlOptions]="{ updateOn: 'blur input', debounce: {  'blur': 0, 'input': 3000 } }" class="form-control" formControlName="name" id="name"-->
-      <input class="form-control" formControlName="name" id="name"
-             myErrorMsg>
+      <!--      <input [peeControlOptions]=" {  'blur': 0, 'input': 3000 }" class="form-control" formControlName="name" id="name">-->
+      <!--      <input class="form-control" formControlName="name" id="name"   myErrorMsg>  -->
+      <input class="form-control" formControlName="name" id="name" myErrorMsg peeControlOptions>
     </div>
 
     <div class="form-check form-group mt-3 mb-3">

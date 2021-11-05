@@ -5,26 +5,27 @@ import {Plog} from '@gpeel/plog';
 import {fromEvent, merge, Observable, Subscription, timer} from 'rxjs';
 import {debounce, map} from 'rxjs/operators';
 
-// { updateOn: 'blur input', debounce: {  'blur': 0, 'input': 300 } }
+//  {  'blur': 0, 'input': 300 } }
 export interface ControlOptions {
-  updateOn: string;
-  debounce: {
-    [key: string]: number;
-  };
+  blur: number;
+  input: number;
+}
 
+export interface ControlOptionals {
+  blur?: number;
+  input?: number;
 }
 
 
 /**
  * This is the default values
  * You can customize ie :
- * [peeControlOptions]="{ updateOn: 'blur input', debounce: {  'blur': 0, 'input': 300 } }"
- *
- *  debounce: {'input': 200}, => if blur not present => debounce time defaulting to 0
+ * [peeControlOptions]="{  'blur': 0, 'input': 300}" means you want a valueChanges emit on blur with a debounce of 0,
+ * and a valueChanges emit on input with a debounce of 300.
  */
 const DEFAULT_CONTROL_OPTIONS: ControlOptions = {
-  updateOn: 'blur input',
-  debounce: {blur: 0, input: 3000},
+  blur: 0,
+  input: 3000,
 };
 
 /**
@@ -47,10 +48,10 @@ const DEFAULT_CONTROL_OPTIONS: ControlOptions = {
  */
 @Directive({
   selector:
-  // syntax example for complex selecctor, from angular ngForm
-  // selector: 'form:not([ngNoForm]):not([formGroup]),ngForm,[ngForm]',
-  // 'input[type=range][formControlName],input[type=range][formControl],input[type=range][ngModel]',
-    '[peeControlOptions][formControlName],[peeControlOptions][formControl],[peeControlOptions][ngModel]',
+  // types number + email cold be added
+    '[peeControlOptions][formControlName],' +
+    '[peeControlOptions][formControl],' +
+    '[peeControlOptions][ngModel]input[type=text]',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PeeControlOptionsDirective),
@@ -71,47 +72,38 @@ export class PeeControlOptionsDirective implements ControlValueAccessor, OnInit,
   }
 
   @Input()
-  get peeControlOptions() {
+  get peeControlOptions(): ControlOptionals {
     return this._controlOptions;
   }
 
-  set peeControlOptions(val) {
+  set peeControlOptions(val: ControlOptionals | '') {
     if (val) {
       this._controlOptions = {...this._controlOptions, ...val};
     }
   }
 
   ngOnInit() {
-    const events: Observable<any>[] = this._controlOptions.updateOn.split(' ')
-      .map(event => fromEvent(this.element.nativeElement, event));
+    const events$: Observable<any> = merge(
+      fromEvent(this.element.nativeElement, 'blur'),
+      fromEvent(this.element.nativeElement, 'input'));
 
-    this.events = merge(...events)
+    this.events = events$
       .pipe(
-        // @ts-ignore
-        map((e: Event) => ({type: e.type, value: e.target.value})),
+        map((e: Event) => ({type: e.type, value: (e.target as HTMLInputElement).value})),
         debounce(event => {
-          const debounceValue = this._controlOptions.debounce; // {'blur': 0, 'input': 300}
+          // {'blur': 0, 'input': 300}
           let time = 0;
-          // if (typeof debounceValue === 'number') {
-          //   time = debounceValue;
-          // } else if (typeof debounceValue === 'object') {
           const t = event.type;
-          time = debounceValue[t] ? debounceValue[t] : 0;
-          // }
+          if (t === 'blur' || t === 'input') {
+            time = this._controlOptions[t] ? this._controlOptions[t] : 0;
+          }
           return timer(time);
         }),
         map(event => {
           if (event.type === 'blur') {
-            // Plog.pink('BLUR => touched');
             this.onTouched(event.value);
-            this.onChange(event.value); // the changed is required
-            // because otherwise, a strange bug:  for exmaple if validator minlength=3 and required
-            // type 2 caracters abd clic outside to blur before the debounce time
-            // => then the field stays pristine, (touched is ok)
-            // ANd the validators are NOT recomputed by Angular.
-            // So ther erro show is 'Field is required' but it should be 'length should eb longer than 3'
+            this.onChange(event.value); // the changed is required to recompute validators
           } else if (event.type === 'input') {
-            this.onTouched(event.value);
             this.onChange(event.value);
           }
           return event;
