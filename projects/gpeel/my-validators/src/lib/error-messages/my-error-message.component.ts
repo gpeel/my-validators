@@ -71,8 +71,12 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
   counter: number = 1;
   // adebounce: number = 3000; // debouncing is NOT very interesting, because there is still a full changeDetection cycle
   // for each user keystroke ...
-  // it is just that the error are not shown until the debounceTime, but there is no gain of perf (because there IS a CD).
-  // A MUCH better option to prevent multiple CDs would be to change the ControlValueAccessor for the input and add a debounce
+  // it is just that the error are not shown until the debounceTime, but there is no gain of perf
+  // because there IS a CD reaching the Component containing the <input> emitting the for each keystroke.
+  // A MUCH better option to prevent multiple CDs would be to change the ControlValueAccessor for the input and add a debounce.
+  // In that case there is (still) a CD but NOT reaching the @Compoennt containing the <input>. so these type of CD are harmless
+  // if your component use OnPush.
+  // That's because the CVA will NOT emit toward the FormControl until the debounce time.
   // "Quite simple", and can be made independant of the validators
 
   constructor(private cd: ChangeDetectorRef) {

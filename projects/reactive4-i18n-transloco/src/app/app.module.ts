@@ -8,6 +8,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
 
 import {AppComponent} from './app.component';
+import {PeeControlOptionsDirective} from './pee-control-options.directive';
 import {MyPerfModule} from './perf/my-perf.module';
 import {CvaComboComponent} from './reactive-all/cva-combo.component';
 import {ReactiveAllComponent} from './reactive-all/reactive-all.component';
@@ -22,6 +23,7 @@ import {TypicalValidatorsService} from './validators/typical-validators.service'
     AppComponent,
     ReactiveAllComponent,
     CvaComboComponent,
+    PeeControlOptionsDirective
   ],
   imports: [
     FormsModule,
