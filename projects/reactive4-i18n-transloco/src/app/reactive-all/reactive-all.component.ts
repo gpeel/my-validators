@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {ErrorMsgMap, makeDirty} from '@gpeel/my-validators';
 import {Plog} from '@gpeel/plog';
@@ -26,7 +26,8 @@ const EN_extraMessagesOverride: ErrorMsgMap = {
 @Component({
   selector: 'reactive-all',
   templateUrl: 'reactive-all.component.html',
-  styleUrls: ['reactive-all.component.scss']
+  styleUrls: ['reactive-all.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReactiveAllComponent implements OnInit {
 
@@ -88,10 +89,10 @@ export class ReactiveAllComponent implements OnInit {
 
 
     // For DEBUG and demo purpose, some logs to NG feedbacks:
-    this.form.valueChanges.subscribe(d => Plog.colorGreen('form.valueChanges', d));
-    this.form.statusChanges.subscribe(d => Plog.colorGreen('form.statusChanges', d));
-    this.form.get('name')!.valueChanges.subscribe(d => Plog.colorGreen('name.valueChanges', d));
-    this.form.get('name')!.statusChanges.subscribe(d => Plog.colorGreen('name.statusChanges', d));
+    // this.form.valueChanges.subscribe(d => Plog.colorGreen('form.valueChanges', d));
+    // this.form.statusChanges.subscribe(d => Plog.colorGreen('form.statusChanges', d));
+    // this.form.get('name')!.valueChanges.subscribe(d => Plog.colorGreen('name.valueChanges', d));
+    // this.form.get('name')!.statusChanges.subscribe(d => Plog.colorGreen('name.statusChanges', d));
 
     this.translocoService.langChanges$.subscribe(l => {
       Plog.red('Language change', l);
