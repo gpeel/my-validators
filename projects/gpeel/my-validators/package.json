@@ -2,18 +2,29 @@
   "name": "@gpeel/my-validators",
   "version": "12.0.0",
   "peerDependencies": {
-    "@angular/common": ">=7.0.0 <14.0.0",
-    "@angular/core": ">=7.0.0 <14.0.0",
-    "@gpeel/plog": ">=9.0.0 <14.0.0"
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0",
+    "@gpeel/plog": "^12.0.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0",
-    "@gpeel/plog": "^12.0.7"
+    "tslib": "^2.3.0"
   },
   "keywords": [
     "angular",
     "validator",
     "forms"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gpeel/my-validators.git"
+  },
+  "author": {
+    "name": "Gauthier Peel",
+    "email": "gauthier.peel.113@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/gpeel/my-validators/issues"
+  },
+  "homepage": "https://github.com/gpeel/my-validators"
 }
