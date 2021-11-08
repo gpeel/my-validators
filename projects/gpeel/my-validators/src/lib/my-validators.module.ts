@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {DebugFormComponent} from './debug-form/debug-form.component';
 import {DebugInputFieldComponent} from './debug-form/debug-input-field.component';
+import {MyControlOptionsDirective} from './error-messages/my-control-options.directive';
 import {MyErrorMessageComponent} from './error-messages/my-error-message.component';
 import {MyErrorDirective} from './error-messages/my-error.directive';
 import {MY_ALERT_SERVICE_API} from './pluggable-api/alert/alert-api';
@@ -31,6 +32,7 @@ import {
     DebugInputFieldComponent,
     MyErrorMessageComponent,
     MyErrorDirective,
+    MyControlOptionsDirective,
     MySubmitIfValidAndDirtyDirective,
     MySubmitIfValidDirective,
     // extended Validators originaly from Angular, now with an embedded 'msg' property
@@ -46,6 +48,7 @@ import {
     DebugInputFieldComponent,
     MyErrorMessageComponent,
     MyErrorDirective,
+    MyControlOptionsDirective,
     MySubmitIfValidAndDirtyDirective,
     MySubmitIfValidDirective,
     MyRequiredValidator,

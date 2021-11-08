@@ -1,6 +1,12 @@
 export {DebugFormComponent} from './debug-form/debug-form.component';
 export {DebugInputFieldComponent} from './debug-form/debug-input-field.component';
-export {ErrorMsgFn, ErrorMsgMap, MyErrorDirective, MyErrorMessageComponent,} from './error-messages/error-msg-api';
+export {
+  ErrorMsgFn,
+  ErrorMsgMap,
+  MyErrorDirective,
+  MyErrorMessageComponent,
+  MyControlOptionsDirective
+} from './error-messages/error-msg-api';
 export {makeDirty, SubmitIfAbstractDirective} from './submit-button/submit-if-abstract.directive';
 export {MySubmitIfValidAndDirtyDirective} from './submit-button/my-submit-if-valid-and-dirty.directive';
 export {MySubmitIfValidDirective} from './submit-button/my-submit-if-valid.directive';
