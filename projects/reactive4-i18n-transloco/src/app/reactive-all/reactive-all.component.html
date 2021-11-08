@@ -8,10 +8,11 @@
     <div class="form-group">
       <label for="name">Name</label>
       <!--      <input [myControlOptions]=" { 'input': 3000 }" class="form-control" formControlName="name" id="name">-->
-      <!--            <input [myControlOptions]=" {  'blur': 0, 'input': 3000 }" class="form-control" formControlName="name" id="name">-->
-      <!--      <input class="form-control" formControlName="name" id="name"   myErrorMsg>  -->
+      <!--      <input [myControlOptions]=" {  'blur': 0, 'input': 3000 }" class="form-control" formControlName="name" id="name">-->
       <!--      <input class="form-control" formControlName="name" id="name" myControlOptions myErrorMsg>-->
-      <input class="form-control" formControlName="name" id="name" myErrorMsg peeControlOptions>
+      <!--      <input class="form-control" formControlName="name" id="name" myErrorMsg>-->
+      <!--      With myControlOptions the error msg will refresh by default on blur and input+debounce-300ms -->
+      <input class="form-control" formControlName="name" id="name" myControlOptions myErrorMsg>
     </div>
 
     <div class="form-check form-group mt-3 mb-3">

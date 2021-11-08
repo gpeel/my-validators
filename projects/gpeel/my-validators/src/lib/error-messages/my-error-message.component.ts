@@ -73,11 +73,9 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
   // for each user keystroke ...
   // it is just that the error are not shown until the debounceTime, but there is no gain of perf
   // because there IS a CD reaching the Component containing the <input> emitting the for each keystroke.
-  // A MUCH better option to prevent multiple CDs would be to change the ControlValueAccessor for the input and add a debounce.
-  // In that case there is (still) a CD but NOT reaching the @Compoennt containing the <input>. so these type of CD are harmless
-  // if your component use OnPush.
-  // That's because the CVA will NOT emit toward the FormControl until the debounce time.
-  // "Quite simple", and can be made independant of the validators
+  // You could also devise a CVA like ControlOptionDirective int this folder to choose
+  // which events input and/or blur + debounce will make the Validators re-compute.
+  // In that case there is still as many CD. So it's just a matter of UI ergonomics
 
   constructor(private cd: ChangeDetectorRef) {
     Plog.validationErrorMsgCreation('<pee-error-msg>');

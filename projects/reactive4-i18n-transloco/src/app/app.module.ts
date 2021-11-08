@@ -10,7 +10,6 @@ import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {MyPerfModule} from './perf/my-perf.module';
 import {CvaComboComponent} from './reactive-all/cva-combo.component';
-import {PeeControlOptionsDirective} from './reactive-all/pee-options';
 import {ReactiveAllComponent} from './reactive-all/reactive-all.component';
 import {TranslocoRootModule} from './transloco/transloco-root.module';
 import {AlertWithSimpleLogService} from './validators/alert-with-simple-log.service';
@@ -23,7 +22,6 @@ import {TypicalValidatorsService} from './validators/typical-validators.service'
     AppComponent,
     ReactiveAllComponent,
     CvaComboComponent,
-    PeeControlOptionsDirective,
   ],
   imports: [
     FormsModule,

@@ -19,7 +19,7 @@ export interface ControlOptions {
  */
 const DEFAULT_CONTROL_OPTIONS: ControlOptions = {
   blur: 0,
-  input: 3000,
+  input: 300,
 };
 
 /**
