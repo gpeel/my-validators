@@ -3,7 +3,8 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
-.my-error-CUSTOM {
+.my-error-CUSTOM[class] label {
   font-style: italic;
   font-weight: bold;
+  color: blue
 }

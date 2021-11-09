@@ -41,10 +41,13 @@ export class ReactiveUiComponent implements OnInit {
   test5 = ` 
   <input  myErrorClass="my-error-CUSTOM" myErrorMsg>
   
-  .my-error-CUSTOM {
-    font-style: italic;
-    font-weight: bold;
-  }
+    // adding [class] enables to have a higher CSS specificity
+    
+    .my-error-CUSTOM[class] label {
+      font-style: italic;
+      font-weight: bold;
+      color: blue
+    }
   `;
 
   test6 = `

@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit
@@ -11,6 +12,7 @@ import {
 import {AbstractControl} from '@angular/forms';
 import {Plog} from '@gpeel/plog';
 import {Subscription} from 'rxjs';
+import {MY_SHOW_ERROR_MSG_FUNCTION_API, ShowFunction} from '../pluggable-api/messages/messages-service-api';
 import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
 
 /**
@@ -39,7 +41,8 @@ import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
   selector: 'my-error-msg',
   template: `
     {{onRefreshCounter()}}
-    <ng-container *ngIf="errors && (this.control.dirty || this.control.touched)">
+    <!--    <ng-container *ngIf="errors && (this.control.dirty || this.control.touched)">-->
+    <ng-container *ngIf="errors && showFunction(control)">
       <div [ngClass]="customClassObject" class="my-error-GLOBAL">
         <label *ngFor="let message of mymsgs">{{message}}</label>
       </div>
@@ -54,9 +57,12 @@ import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
             margin-bottom: 0;
         }
 
-        /* Define CSS with my-error-GLOBAL in the GLOBAL file ./src/styles.css */
+        /* Define CSS with .my-error-GLOBAL in the GLOBAL file ./src/styles.css */
+        /* For example*/
+        /* .my-error-GLOBAL[class] label { color: blue;    }*/
     `
   ],
+  // encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -77,7 +83,8 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
   // which events input and/or blur + debounce will make the Validators re-compute.
   // In that case there is still as many CD. So it's just a matter of UI ergonomics
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef,
+              @Inject(MY_SHOW_ERROR_MSG_FUNCTION_API) public showFunction: ShowFunction) {
     Plog.validationErrorMsgCreation('<pee-error-msg>');
   }
 

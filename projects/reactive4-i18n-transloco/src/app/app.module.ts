@@ -31,7 +31,14 @@ import {TypicalValidatorsService} from './validators/typical-validators.service'
     HttpClientModule,
     TranslocoRootModule,
     //
+    // pass a custom function to show error
+    // By default the function is: (control: AbstractControl) => (control.dirty || control.touched)
+    //
+    // MyValidatorsModule.forRoot((control: AbstractControl) => (control.dirty || control.touched)),
+    // MyValidatorsModule.forRoot((control: AbstractControl) => (control.touched)),
     MyValidatorsModule,
+    // NOT interesting because (blur) will also turn into dirty with myErrorMsg
+    // MyValidatorsModule.forRoot((control: AbstractControl) => (control.dirty)),
     PlogModule.forRoot(environment),
     MyPerfModule,
     NgbModule,

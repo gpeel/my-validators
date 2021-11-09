@@ -7,3 +7,10 @@
   font-style: italic;
   font-weight: bold;
 }
+
+
+//.my-error-GLOBAL[class] label {
+//  color: blue;
+//}
+// adding [class] enable to override the CSS specificity rules
+// for the red color defined inside the  my-error-message.component.ts

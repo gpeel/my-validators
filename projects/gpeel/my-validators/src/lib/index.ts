@@ -22,7 +22,8 @@ export {
 } from './pluggable-api/validators/validators-service-api';
 export {MY_ALERT_SERVICE_API, MyAlertServiceInterface} from './pluggable-api/alert/alert-api';
 export {
-  MyMessagesServiceInterface, MY_MESSAGES_SERVICE_API
+  MyMessagesServiceInterface, MY_MESSAGES_SERVICE_API,
+  DEFAULT_SHOW_ERROR_MSG_FUNCTION, MY_SHOW_ERROR_MSG_FUNCTION_API
 } from './pluggable-api/messages/messages-service-api';
 
 // default implementtaion for those interfaces / Token

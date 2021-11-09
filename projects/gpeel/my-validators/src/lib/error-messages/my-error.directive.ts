@@ -96,7 +96,9 @@ export class MyErrorDirective implements OnInit, AfterViewInit, OnChanges {
     fromEvent(this.host.nativeElement, 'focusout') // focusout same as blur
       .subscribe((e) => {
         if (this.component) {
-          this.component.control.updateValueAndValidity();
+          this.component.control.updateValueAndValidity(); // this turns dirty when blurred on <input>
+          // but NOT for <select> nor <textarea>
+          this.component.control.markAsDirty(); // <= specifically for <select> nor <textarea>
         }
         // this.component.control.markAsTouched(); // not necessary ...
       });
