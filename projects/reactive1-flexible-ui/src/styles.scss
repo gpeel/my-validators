@@ -3,8 +3,16 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+
+// adding [class] enable to override the CSS specificity rules
+// for the red color defined inside the  my-error-message.component.ts
 .my-error-CUSTOM[class] label {
   font-style: italic;
   font-weight: bold;
   color: blue
+}
+
+
+.my-error-GLOBAL[class] label {
+  font-size: 12px;
 }
