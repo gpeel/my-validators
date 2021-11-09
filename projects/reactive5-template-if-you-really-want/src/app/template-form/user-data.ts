@@ -8,8 +8,6 @@ export interface UserData {
   uneditedField: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-
 export enum InterfaceStyleEnum {
   Medium = 'Medium',
   Light = 'Light',

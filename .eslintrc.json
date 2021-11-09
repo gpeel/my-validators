@@ -50,7 +50,7 @@
           {
             "selector": "enum",
             "format": [
-              "camelCase"
+              "StrictPascalCase"
             ]
           }
         ],
