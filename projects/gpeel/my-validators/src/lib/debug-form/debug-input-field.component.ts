@@ -22,7 +22,7 @@ import {Plog} from '@gpeel/plog';
   template: `
     <pre style="font-size: 12px">
 
-      Field.{{prop}}.value = {{control?.value}}
+      Field.{{prop}}.value = {{control?.value | json}}
       {{prop}}.blur={{control?.touched}}
       {{prop}}.dirty={{control?.dirty}}
       {{prop}}.errors = {{control?.errors | json}}

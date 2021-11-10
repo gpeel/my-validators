@@ -135,6 +135,29 @@ See more realistic and flexible examples on github :
 - reactive4-i18n-transloco: extending from the reactive3-flexible-validators example and connecting the MessageService
   to a translator tool @ngneat/transloco in this case.
 
+## (OPTIONAL) Placing the error messages where you want
+
+The myErrorMsg Directive will create a component \<my-error-msg> to show the errors, but you can place it yourself on
+the template and link the myErrorMsg directive to the \<my-error-msg> component with a template variable reference:
+
+````html
+
+<my-error-msg #nameErrors="myErrorMsg"></my-error-msg>
+
+<div class="form-group">
+  <label for="name2">Name2</label>
+  <input [myErrorMsg]="nameErrors" class="form-control" formControlName="name2" id="name2">
+</div>
+````
+
+In this example the validation errors will appear above ths \<input> and there is template var ref named #nameErrors (
+the name could be anything). The template var hint **should be** 'myErrorMsg' because we want this var to reference the
+COmponent instance of \<my-error-msg> which contains in the @Component the exportAs props :  'exportAs : 'myErrorMsg','.
+Then finally we give the directive myErrorMsg this template variable as @Input parameter with [myErrorMsg]="
+nameErrors".
+
+So now myErrorMsg does have a reference to the component \<my-error-msg> and can exhange with it.
+
 ## Plog install in your main project (OPTIONNAL)
 
 my-validators uses a simple logger @gpeel/plog to enable/disable the output logs of validators.
