@@ -1,7 +1,12 @@
 import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
-import {MY_ALERT_SERVICE_API, MY_MESSAGES_SERVICE_API, MyValidatorsModule} from '@gpeel/my-validators';
+import {
+  MY_ALERT_SERVICE_API,
+  MY_MESSAGES_SERVICE_API,
+  MY_SHOW_ERROR_MSG_FUNCTION_API,
+  MyValidatorsModule
+} from '@gpeel/my-validators';
 import {PlogModule} from '@gpeel/plog';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
@@ -46,6 +51,14 @@ import {TypicalValidatorsService} from './validators/typical-validators.service'
     {
       provide: MY_MESSAGES_SERVICE_API,
       useClass: TypicalMessagesService,
+    },
+    // MY_SHOW_ERROR_MSG_FUNCTION_API enable to change to function used by <my-error-msg> component to show the errors
+    {
+      provide: MY_SHOW_ERROR_MSG_FUNCTION_API,
+      // default value:
+      // useValue: (control: AbstractControl) => (control.dirty || control.touched)
+      // not showing error until blurred
+      useValue: (control: AbstractControl) => control.touched
     }
   ],
   bootstrap: [AppComponent]

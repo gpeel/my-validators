@@ -98,6 +98,27 @@ That's ALL !
 Of Course you can optionnaly place the error messages preceisely wher you want and customize the message with dedicated
 services. Look at the examples on github https://github.com/gpeel/my-validators
 
+## choosing when the error messages appear
+
+Buy default the errors are show when an \<input> turns touched or dirty and has some errors to show.
+
+All error messages are shown (not only the first, except required which behaves as usual ie lonely).
+
+To override the function used to show error you can provide an alternative function with the followinf settings:
+
+````typescript
+    // MY_SHOW_ERROR_MSG_FUNCTION_API enable to change to function used by <my-error-msg> component to show the errors
+{
+  provide: MY_SHOW_ERROR_MSG_FUNCTION_API,
+    // default value:
+    // useValue: (control: AbstractControl) => (control.dirty || control.touched)
+    // not showing error until blurred
+    useValue
+:
+  (control: AbstractControl) => control.touched
+}
+````
+
 ## Strategy Validators / Error-Message
 
 This is a 2-steps process:
@@ -134,29 +155,6 @@ See more realistic and flexible examples on github :
   of each validator error key.
 - reactive4-i18n-transloco: extending from the reactive3-flexible-validators example and connecting the MessageService
   to a translator tool @ngneat/transloco in this case.
-
-## (OPTIONAL) Placing the error messages where you want
-
-The myErrorMsg Directive will create a component \<my-error-msg> to show the errors, but you can place it yourself on
-the template and link the myErrorMsg directive to the \<my-error-msg> component with a template variable reference:
-
-````html
-
-<my-error-msg #nameErrors="myErrorMsg"></my-error-msg>
-
-<div class="form-group">
-  <label for="name2">Name2</label>
-  <input [myErrorMsg]="nameErrors" class="form-control" formControlName="name2" id="name2">
-</div>
-````
-
-In this example the validation errors will appear above ths \<input> and there is template var ref named #nameErrors (
-the name could be anything). The template var hint **should be** 'myErrorMsg' because we want this var to reference the
-COmponent instance of \<my-error-msg> which contains in the @Component the exportAs props :  'exportAs : 'myErrorMsg','.
-Then finally we give the directive myErrorMsg this template variable as @Input parameter with [myErrorMsg]="
-nameErrors".
-
-So now myErrorMsg does have a reference to the component \<my-error-msg> and can exhange with it.
 
 ## Plog install in your main project (OPTIONNAL)
 

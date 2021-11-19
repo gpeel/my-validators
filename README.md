@@ -98,6 +98,27 @@ That's ALL !
 Of Course you can optionnaly place the error messages preceisely wher you want and customize the message with dedicated
 services. Look at the examples on github https://github.com/gpeel/my-validators
 
+## choosing when the error messages appear
+
+Buy default the errors are show when an \<input> turns touched or dirty and has some errors to show.
+
+All error messages are shown (not only the first, except required which behaves as usual ie lonely).
+
+To override the function used to show error you can provide an alternative function with the followinf settings:
+
+````typescript
+    // MY_SHOW_ERROR_MSG_FUNCTION_API enable to change to function used by <my-error-msg> component to show the errors
+{
+  provide: MY_SHOW_ERROR_MSG_FUNCTION_API,
+    // default value:
+    // useValue: (control: AbstractControl) => (control.dirty || control.touched)
+    // not showing error until blurred
+    useValue
+:
+  (control: AbstractControl) => control.touched
+}
+````
+
 ## Strategy Validators / Error-Message
 
 This is a 2-steps process:
