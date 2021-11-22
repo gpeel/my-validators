@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {ErrorMsgMap, makeDirty, MyValidators} from '@gpeel/my-validators';
 import {Plog} from '@gpeel/plog';
 
@@ -9,17 +9,16 @@ import {Plog} from '@gpeel/plog';
   styleUrls: ['reactive-ui.component.css']
 })
 export class ReactiveUiComponent implements OnInit {
-
   originalInstance = {
-    name1: 'Thomas1',
+    name1: '',
     name2: 'Thomas2',
     name3: '',
     name4: 'Th',
     name5: 'Thomas5',
     name6: 'Thomas6',
+    name7: 'Thomas7',
   };
   form!: FormGroup;
-
   extraMessagesOverride: ErrorMsgMap = {
     required: 'Override You must choose something !',
     minlength: ({
@@ -27,7 +26,6 @@ export class ReactiveUiComponent implements OnInit {
                   requiredLength
                 }) => `Override : Actual length is ${actualLength} and we need ${requiredLength}!`
   };
-
   test4 = `
     extraMessagesOverride: ErrorMsgMap = {
       required: 'Override You must choose something !',
@@ -37,7 +35,6 @@ export class ReactiveUiComponent implements OnInit {
                   }) => \`Override : Actual length is \${actualLength} and we need \${requiredLength}!\`
     };
   `;
-
   test5 = ` 
   <input  myErrorClass="my-error-CUSTOM" myErrorMsg>
   
@@ -49,19 +46,29 @@ export class ReactiveUiComponent implements OnInit {
       color: blue
     }
   `;
-
   test6 = `
         <my-error-msg #name6Errors="myErrorMsg" 
                     myErrorClass="my-error-CUSTOM"
                     [myErrorExtraMsg]="extraMessagesOverride"
       ></my-error-msg>
   `;
+  test7 = `
+        <my-error-msg #name6Errors="myErrorMsg" 
+                    [showErrorFunction]="showErrorFunction"
+      ></my-error-msg>
+  `;
 
   constructor(private fb: FormBuilder) {
   }
 
+  showFn = (control: AbstractControl) => control.touched;
+
   ngOnInit() {
-    const validators = [Validators.required, MyValidators.minLength(3), MyValidators.pattern(/titi/), this.myCustomValidatorForbiddenName];
+    const validators = [
+      MyValidators.required,
+      MyValidators.minLength(3),
+      MyValidators.pattern(/titi/),
+      this.myCustomValidatorForbiddenName];
 
     this.form = this.fb.group({
       name1: [this.originalInstance.name1, validators],
@@ -70,6 +77,7 @@ export class ReactiveUiComponent implements OnInit {
       name4: [this.originalInstance.name4, validators],
       name5: [this.originalInstance.name5, validators],
       name6: [this.originalInstance.name6, validators],
+      name7: [this.originalInstance.name7, validators],
     });
 
     // For DEBUG and demo purpose, some logs to get NG feedbacks:
@@ -89,7 +97,7 @@ export class ReactiveUiComponent implements OnInit {
   }
 
   onCancel() {
-    this.form.reset({name: this.originalInstance});
+    this.form.reset({...this.originalInstance});
   }
 
   onSubmit() {
@@ -105,6 +113,7 @@ export class ReactiveUiComponent implements OnInit {
       name4: 'Aristotetiti4',
       name5: 'Aristotetiti5',
       name6: 'Aristotetiti6',
+      name7: 'Aristotetiti7',
     };
     this.form.setValue(correctinstance); // setValues does NOT turn the form into dirty;
     this.form.markAsDirty({onlySelf: false}); // markAsDirty still does NOT => use the custom method makeDirty

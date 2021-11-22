@@ -119,6 +119,24 @@ To override the function used to show error you can provide an alternative funct
 }
 ````
 
+You also have the option to change the strategy to show error function on a specific \<input> with the param
+showErrorFunction:
+
+````html
+<input [showErrorFunction]="showFn" class="form-control" formControlName="name7" id="name7" myErrorMsg>
+````
+
+````typescript
+showFn = (control: AbstractControl) => control.touched;
+````
+
+This cutomization is available on the component \<my-error-msg> if you prefer:
+
+````html
+<input [myErrorMsg]="name7Errors" class="form-control" formControlName="name7" id="name7">
+<my-error-msg #name7Errors="myErrorMsg" [showErrorFunction]="showFn"></my-error-msg>
+````
+
 ## Strategy Validators / Error-Message
 
 This is a 2-steps process:

@@ -11,7 +11,7 @@ import {
   SimpleChanges,
   ViewContainerRef
 } from '@angular/core';
-import {ControlContainer, NgControl} from '@angular/forms';
+import {AbstractControl, ControlContainer, NgControl} from '@angular/forms';
 import {fromEvent} from 'rxjs';
 import {ErrorMsgMap} from '../error-messages/error-msg-api';
 import {MyErrorMessageComponent} from './my-error-message.component';
@@ -44,6 +44,7 @@ export class MyErrorDirective implements OnInit, AfterViewInit, OnChanges {
   // '' for myErrorMsg
   @Input() myErrorClass: string | undefined;
   @Input() myErrorExtraMsg: ErrorMsgMap | undefined;
+  @Input() showErrorFunction!: (control: AbstractControl) => boolean | undefined;
   @Input() id: string = '';
 
   constructor(private vcr: ViewContainerRef,
@@ -91,10 +92,13 @@ export class MyErrorDirective implements OnInit, AfterViewInit, OnChanges {
     if (this.id) {
       this.component.id = this.id;
     }
+    if (this.showErrorFunction) {
+      this.component.showErrorFunction = this.showErrorFunction;
+    }
 
     // correcting the blur event defective-NG-strategy
     fromEvent(this.host.nativeElement, 'focusout') // focusout same as blur
-      .subscribe((e) => {
+      .subscribe(() => {
         if (this.component) {
           this.component.control.updateValueAndValidity(); // this turns dirty when blurred on <input>
           // but NOT for <select> nor <textarea>

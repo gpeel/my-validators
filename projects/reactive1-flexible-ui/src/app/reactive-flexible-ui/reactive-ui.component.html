@@ -127,6 +127,31 @@
       </div>
     </div>
 
+    <!--  test 7 -->
+    <div class="card m-3">
+      <div class="fst-italic">
+        <h4>Test 7 override WHEN messages appears </h4>
+        <div> By default error messages appear when an input is burred or dirty, but you could change that strategy
+          GLOBALLY
+          by providing a function to the Token MY_SHOW_ERROR_MSG_FUNCTION_API, or locally by giving a value to the
+          @Input showErrorFunction. In the following example, now the input will only show its errors on blur, with
+          showFn = (control: AbstractControl) => control.touched;
+        </div>
+        <pre class="m-0">{{test7}}</pre>
+      </div>
+
+      <div class="card-body">
+        <div class="form-group">
+          <label for="name7">Name</label>
+          <input [showErrorFunction]="showFn" class="form-control" formControlName="name7" id="name7" myErrorMsg>
+          <!--          Or other option, cutomize on the component my-error-msg -->
+          <!--          <input [myErrorMsg]="name7Errors" class="form-control" formControlName="name7"-->
+          <!--                 id="name7">-->
+          <!--          <my-error-msg #name7Errors="myErrorMsg" [showErrorFunction]="showFn"></my-error-msg>-->
+        </div>
+      </div>
+    </div>
+
     <div class="mt-5">
       <button class="btn btn-primary">Send</button>
       <!--      mySubmitIfValidAndDirty stopPropagation and preventDefault for the button -->

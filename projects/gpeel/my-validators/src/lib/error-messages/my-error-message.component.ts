@@ -42,7 +42,7 @@ import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
   template: `
     {{onRefreshCounter()}}
     <!--    <ng-container *ngIf="errors && (this.control.dirty || this.control.touched)">-->
-    <ng-container *ngIf="errors && showFunction(control)">
+    <ng-container *ngIf="errors && showErrorUsed(control)">
       <div [ngClass]="customClassObject" class="my-error-GLOBAL">
         <label *ngFor="let message of mymsgs">{{message}}</label>
       </div>
@@ -68,6 +68,9 @@ import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
 export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() myErrorExtraMsg: ErrorMsgMap = {};
+  @Input() showErrorFunction!: (control: AbstractControl) => boolean | undefined;
+
+  showErrorUsed!: (control: AbstractControl) => boolean | undefined;
   control!: AbstractControl;
   errors = false;
   subscription!: Subscription;
@@ -84,8 +87,9 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
   // In that case there is still as many CD. So it's just a matter of UI ergonomics
 
   constructor(private cd: ChangeDetectorRef,
-              @Inject(MY_SHOW_ERROR_MSG_FUNCTION_API) public showFunction: ShowFunction) {
+              @Inject(MY_SHOW_ERROR_MSG_FUNCTION_API) public showFunctionGlobal: ShowFunction) {
     Plog.validationErrorMsgCreation('<pee-error-msg>');
+    this.showErrorUsed = showFunctionGlobal;
   }
 
   // @Input() set debounce(value: any) {
@@ -133,6 +137,7 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
 
 
   ngOnInit(): void {
+    // NOt the right place to do the following => better in ngAfterViewInit()
     // this.compute(); // for startup, so that this.msgs is filled
     // this.subscription = this.control.valueChanges.subscribe(() => {
     //   this.compute();
@@ -141,9 +146,13 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngAfterViewInit(): void {
+    // prefer local customization than global
+    if (this.showErrorFunction) {
+      this.showErrorUsed = this.showErrorFunction;
+    }
     this.compute(); // for startup, so that this.msgs is filled
     this.subscription = this.control.valueChanges
-      // .pipe(debounceTime(this.adebounce)) // see comment above, why it is NOT interresting
+      // .pipe(debounceTime(this.adebounce)) // see comment above, why this line is NOT interresting
       .subscribe(() => {
         this.compute();
         this.cd.markForCheck();

@@ -63,7 +63,6 @@ export class MyControlOptionsDirective implements ControlValueAccessor, OnInit, 
   onTouched: any;
   _controlOptions: ControlOptions = DEFAULT_CONTROL_OPTIONS;
 
-
   constructor(private renderer: Renderer2,
               private element: ElementRef,
               private cd: ChangeDetectorRef) {

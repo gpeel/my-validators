@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {makeDirty, MyValidators} from '@gpeel/my-validators';
 import {Plog} from '@gpeel/plog';
 
@@ -34,7 +34,8 @@ export class ReactiveSimplestComponent implements OnInit {
     //
     this.form = this.fb.group({
       name: [this.originalName,
-        [Validators.required,
+        [
+          MyValidators.required,
           MyValidators.minLength(3),
           MyValidators.pattern(/titi/),
           this.myCustomValidatorForbiddenName]
