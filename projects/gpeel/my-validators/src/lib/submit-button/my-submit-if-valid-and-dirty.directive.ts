@@ -5,25 +5,29 @@ import {MY_ALERT_SERVICE_API, MyAlertServiceInterface} from '../pluggable-api/al
 import {MY_MESSAGES_SERVICE_API, MyMessagesServiceInterface} from '../pluggable-api/messages/messages-service-api';
 import {SubmitIfAbstractDirective} from './submit-if-abstract.directive';
 
-// // usually AlertModule is in ./libs
-
 /**
  * Usage : replace
  * <button (click)="onSaveByContainer()">save</button>
  * by :
  * <button (mySubmitIfValidAndDirty)="onYourLocalMethod()">save</button>
  *
- * Effect: the button should not be not disabled, then when clicking this directive will
- * make any validation error to appear on Validation Messages
- * so the user could correct its inputs and make the form be valid.
- * If the form.valid is true => the event (tsSubmitIfValid) is emitted,
+ * Effect: the button should not be not disabled, then when clicking on the button,
+ * this directive will turn dirty all FormControl on the encapsulating \<form>.
+ * Doing that will make any validation error messgae appear.
+ * If the form.valid is true => the event (mySubmitIfValidAndDirty) is emitted,
  * so the save() method is only then executed.
  * An alertService is invoked  (if provided on MY_ALERT_SERVICE_API Token)
- * - if form not valid to show the messages : 'You must correct your form before saving it'.
- * - if form pristine to show the messages : 'Your FORM is pristine! No action executed';
+ *     {
+ *       provide: MY_ALERT_SERVICE_API,
+ *       useClass: DefaultAlertService
+ *     },
+ *  with import {MY_ALERT_SERVICE_API} from './pluggable-api/alert/alert-api';
  *
- * You can also provide a MessageService impleme,ting MyMessagesServiceInterface,
- * if you do, return a messages or the keys 'pristineForm' and 'invalidForm' to the method
+ * - if the form is not valid, it will show the message : 'You must correct your form before saving it'.
+ * - if the form is pristine, it will show the message : 'Your FORM is pristine! No action executed';
+ *
+ * You can also provide a MessageService implemeting MyMessagesServiceInterface,
+ * if you do, return a message or the keys 'pristineForm' and 'invalidForm' to the method
  * getValidationMessageFor(key: string, errors?: ErrorMsgMap): string;
  *
  * For example :
@@ -35,6 +39,7 @@ import {SubmitIfAbstractDirective} from './submit-if-abstract.directive';
  *     provide: MY_MESSAGES_SERVICE_API,
  *     useClass: DefaultMessagesService
  *   }
+ *   with import { MY_MESSAGES_SERVICE_API } from './pluggable-api/messages/messages-service-api';
  */
 @Directive({
   selector: '[mySubmitIfValidAndDirty]'
