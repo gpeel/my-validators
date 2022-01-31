@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {Plog} from '@gpeel/plog';
-import {Subscription} from 'rxjs';
+import {merge, Subscription} from 'rxjs';
 import {MY_SHOW_ERROR_MSG_FUNCTION_API, ShowFunction} from '../pluggable-api/messages/messages-service-api';
 import {ErrorMsgFn, ErrorMsgMap} from './error-msg-api';
 
@@ -78,6 +78,7 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
   mymsgs: string[] = [];
   id = ''; // id of corresponding <input id=xx> if defined
   counter: number = 1;
+  memoControlErrors: any | undefined;
   // adebounce: number = 3000; // debouncing is NOT very interesting, because there is still a full changeDetection cycle
   // for each user keystroke ...
   // it is just that the error are not shown until the debounceTime, but there is no gain of perf
@@ -151,7 +152,11 @@ export class MyErrorMessageComponent implements OnInit, OnDestroy, AfterViewInit
       this.showErrorUsed = this.showErrorFunction;
     }
     this.compute(); // for startup, so that this.msgs is filled
-    this.subscription = this.control.valueChanges
+    // subscribing to this.control.statusChanges seems redundant
+    // it is ! for sync validators
+    // But for async validators the value was changed much before, so we need to be triggered when validity comes back.
+    // Sinci async only execute when sync are ok, if there is a change means errors coming back.
+    this.subscription = merge(this.control.valueChanges, this.control.statusChanges)
       // .pipe(debounceTime(this.adebounce)) // see comment above, why this line is NOT interresting
       .subscribe(() => {
         this.compute();
