@@ -25,8 +25,8 @@ export class ReactiveSimplestComponent implements OnInit {
     //
     // this.form = this.fb.group({
     //   name: [this.originalName,
-    //     [Validators.required, Validators.minLength(3), Validators.pattern(/titi/), this.myCustomValidatorForbiddenName]],
-    // });
+    //     [Validators.required, Validators.minLength(3), Validators.pattern(/titi/),
+    // this.myCustomValidatorForbiddenName]], });
 
     // Using MyValidators instead of Angular Validators (Same API)
     //
