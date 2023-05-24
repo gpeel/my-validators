@@ -37,7 +37,8 @@ export class ReactiveSimplestComponent implements OnInit {
         [
           MyValidators.required,
           MyValidators.minLength(3),
-          MyValidators.pattern(/titi/),
+          MyValidators.pattern(/titi/, 'patternTiti'),
+          MyValidators.pattern(/titO/, 'patternTitO'),
           this.myCustomValidatorForbiddenName]
       ],
     });

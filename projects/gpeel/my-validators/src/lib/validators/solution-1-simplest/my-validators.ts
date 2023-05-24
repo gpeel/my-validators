@@ -22,7 +22,6 @@ export function isEmptyInputValue(value: any): boolean {
   return value == null || value.length === 0;
 }
 
-
 /**
  * A regular expression that matches valid e-mail addresses.
  * See [this commit](https://github.com/angular/angular.js/commit/f3f5cf72e) for more details.
@@ -30,7 +29,6 @@ export function isEmptyInputValue(value: any): boolean {
 const EMAIL_REGEXP =
   // eslint-disable-next-line max-len
   /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
 
 export class MyValidators {
 
@@ -332,7 +330,9 @@ export class MyValidators {
    * @see `updateValueAndValidity()`
    *
    */
-  static pattern(pattern: string | RegExp): ValidatorFn {
+
+
+  static pattern(pattern: string | RegExp, keyPAtternInErrors: string = 'pattern'): ValidatorFn {
     if (!pattern) {
       return MyValidators.nullValidator;
     }
@@ -363,7 +363,7 @@ export class MyValidators {
       const value: string = control.value;
       return regex.test(value) ? null :
         {
-          pattern:
+          [keyPAtternInErrors]:
             {
               requiredPattern: regexStr,
               actualValue: value,
